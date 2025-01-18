@@ -1,0 +1,41 @@
+[debug] [2025-01-10T09:40:23.458Z] ----------------------------------------------------------------------
+[debug] [2025-01-10T09:40:23.460Z] Command:       C:\Program Files\nodejs\node.exe C:\Users\nguye\AppData\Roaming\npm\node_modules\firebase-tools\lib\bin\firebase.js init functions
+[debug] [2025-01-10T09:40:23.461Z] CLI Version:   13.29.1
+[debug] [2025-01-10T09:40:23.461Z] Platform:      win32
+[debug] [2025-01-10T09:40:23.461Z] Node Version:  v22.12.0
+[debug] [2025-01-10T09:40:23.461Z] Time:          Fri Jan 10 2025 16:40:23 GMT+0700 (Indochina Time)
+[debug] [2025-01-10T09:40:23.461Z] ----------------------------------------------------------------------
+[debug] 
+[debug] [2025-01-10T09:40:23.469Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[debug] [2025-01-10T09:40:23.469Z] > authorizing via signed-in user (imisthanhthien@gmail.com)
+[info] 
+     ######## #### ########  ######## ########     ###     ######  ########
+     ##        ##  ##     ## ##       ##     ##  ##   ##  ##       ##
+     ######    ##  ########  ######   ########  #########  ######  ######
+     ##        ##  ##    ##  ##       ##     ## ##     ##       ## ##
+     ##       #### ##     ## ######## ########  ##     ##  ######  ########
+
+You're about to initialize a Firebase project in this directory:
+
+  D:\WELLCOME_REACTJS\backend
+
+[info] 
+=== Project Setup
+[info] 
+[info] First, let's associate this project directory with a Firebase project.
+[info] You can create multiple project aliases by running firebase use --add, 
+[info] but for now we'll just set up a default project.
+[info] 
+[info] i  If you want to create a project in a Google Cloud organization or folder, please use "firebase projects:create" instead, and return to this command when you've created the project. 
+[debug] [2025-01-10T09:42:43.555Z] Checked if tokens are valid: true, expires at: 1736505600976
+[debug] [2025-01-10T09:42:43.555Z] Checked if tokens are valid: true, expires at: 1736505600976
+[debug] [2025-01-10T09:42:43.556Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects [none]
+[debug] [2025-01-10T09:42:43.556Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"projectId":"my-project-firebase","name":"my-project-firebase"}
+[debug] [2025-01-10T09:42:44.800Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects 409
+[debug] [2025-01-10T09:42:44.800Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects {"error":{"code":409,"message":"Requested entity already exists","status":"ALREADY_EXISTS"}}
+[debug] [2025-01-10T09:42:49.823Z] Error: Timed out.
+    at Timeout._onTimeout (C:\Users\nguye\AppData\Roaming\npm\node_modules\firebase-tools\lib\utils.js:269:49)
+    at listOnTimeout (node:internal/timers:594:17)
+    at process.processTimers (node:internal/timers:529:7)
+[error] 
+[error] Error: An unexpected error has occurred.
