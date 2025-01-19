@@ -1,4 +1,4 @@
-const db = require('../db'); // Import kết nối từ db.js
+const db = require('../db'); 
 
 // Lấy danh sách tất cả khách hàng
 const getAllCustomers = (callback) => {

@@ -100,6 +100,7 @@ const updateStatus = (orderId, newStatus, callback) => {
         callback(null, results);
     });
 };
+
 module.exports = {
     getAllOrders,
     getOrderById,

@@ -1,7 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Hook dùng để lấy mối quan hệ giữa giảm giá và đơn hàng
 const useOrderDiscount = () => {
     const [orderDiscountMaps, setOrderDiscountMaps] = useState([]);
     const [loading, setLoading] = useState(true);

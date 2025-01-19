@@ -29,7 +29,7 @@ export const ProductCart = createSlice({
       }
     },
     ClearCart: (state) => {
-      state.CartArr = []; 
+      state.CartArr = [];
       localStorage.setItem('cart', JSON.stringify(state.CartArr));
     },
   },

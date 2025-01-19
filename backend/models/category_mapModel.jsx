@@ -92,6 +92,7 @@ const deleteProductCategoryMapping = (productId, categoryId, callback) => {
         callback(null, results);
     });
 };
+
 // Cập nhật mối quan hệ giữa sản phẩm và danh mục
 const updateProductCategoryMapping = (productId, newCategoryId, callback) => {
     const sql = 'UPDATE product_category_map SET category_id = ? WHERE product_id = ?';
@@ -106,7 +107,6 @@ const updateProductCategoryMapping = (productId, newCategoryId, callback) => {
         callback(null, results);
     });
 };
-
 
 module.exports = {
     getAllProductCategoryMaps,

@@ -34,7 +34,6 @@ const addOrder = (req, res) => {
     if (!order.customer_id || !order.order_date || !order.status || !order.total_price) {
         return res.status(400).send('Thiếu thông tin cần thiết để thêm order');
     }
-
     orderModel.addOrder(order, (err, result) => {
         if (err) {
             console.error('Lỗi khi thêm order:', err);
@@ -80,12 +79,12 @@ const deleteOrderById = (req, res) => {
         res.status(200).send('Order đã được xóa thành công');
     });
 };
+
 // Cập nhật trạng thái của đơn hàng
 const updateStatus = (req, res) => {
-    const { id } = req.params; // ID của đơn hàng cần cập nhật
-    const { status } = req.body; // Trạng thái mới
-
-    // Kiểm tra nếu không có trạng thái
+    const { id } = req.params; 
+    const { status } = req.body; 
+    
     if (!status) {
         return res.status(400).send('Thiếu thông tin trạng thái cần cập nhật');
     }

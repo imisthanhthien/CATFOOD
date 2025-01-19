@@ -4,7 +4,7 @@ import { FaHome, FaBox, FaPercent, FaPhone, FaInfoCircle, FaCat } from 'react-ic
 const Sidebar = () => {
   return (
     <div className="w-64 bg-gray-800 text-white h-screen p-6">
-    
+
 
       {/* Menu */}
       <ul className="space-y-4">

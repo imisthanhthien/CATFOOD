@@ -9,7 +9,7 @@ const AdminHome = () => {
 
   useEffect(() => {
     if (!user || user.role !== "admin") {
-      navigate("/"); 
+      navigate("/");
     }
   }, [user, navigate]);
 

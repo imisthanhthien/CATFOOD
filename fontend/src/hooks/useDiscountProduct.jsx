@@ -36,11 +36,11 @@ const useDiscountProduct = () => {
         return new Promise((resolve, reject) => {
             axios.get(`http://localhost:8081/discount-products/products/${productId}`)
                 .then((response) => {
-                    resolve(response.data); 
+                    resolve(response.data);
                 })
                 .catch((err) => {
                     console.error('Lỗi khi lấy giảm giá theo product_id:', err);
-                    reject('Lỗi khi lấy dữ liệu'); 
+                    reject('Lỗi khi lấy dữ liệu');
                 });
         });
     };
@@ -54,7 +54,7 @@ const useDiscountProduct = () => {
         try {
             const response = await axios.post('http://localhost:8081/discount-products', {
                 discount_id: discountId,
-                product_id: productId    
+                product_id: productId
             });
             return response.data;
         } catch (err) {
@@ -70,7 +70,7 @@ const useDiscountProduct = () => {
             }
         }
     };
-    
+
     // Xóa mối quan hệ giảm giá và sản phẩm
     const deleteDiscountProductMapping = async (discountId, productId) => {
         try {
@@ -86,7 +86,7 @@ const useDiscountProduct = () => {
     const checkProductDiscount = async (productId) => {
         try {
             const response = await axios.get(`http://localhost:8081/discount-products/check-product/${productId}`);
-            return response.data.isDiscounted === 1; // Trả về true nếu có giảm giá, false nếu không
+            return response.data.isDiscounted === 1; 
         } catch (err) {
             console.error('Lỗi khi kiểm tra sản phẩm có giảm giá:', err);
             setError('Lỗi khi kiểm tra giảm giá');
@@ -98,32 +98,29 @@ const useDiscountProduct = () => {
     const getDiscountIdByProductId = async (productId) => {
         try {
             const response = await axios.get(`http://localhost:8081/discount-products/discount-id/${productId}`);
-            console.log("API Response:", response);  
-    
+            console.log("API Response:", response);
+
             if (response.data && response.data.discountId) {
                 return [response.data.discountId];
             }
-            return []; 
+            return [];
         } catch (err) {
             console.error('Lỗi khi lấy discount_id theo product_id:', err);
             setError('Lỗi khi lấy discount_id');
-            return []; 
+            return [];
         }
     };
 
     const checkDiscountExists = async (discountId) => {
         try {
             const response = await axios.get(`http://localhost:8081/discount-products/check-discount/${discountId}`);
-            console.log('API response:', response.data);
-            
-            // Kiểm tra giá trị 'exists' từ API
-            return response.data.exists === 1;  // Trả về true nếu 'exists' là 1
+            return response.data.exists === 1; 
         } catch (error) {
             console.error('Lỗi khi kiểm tra discount_id:', error);
-            return false;  // Trả về false nếu có lỗi xảy ra
+            return false;  
         }
     };
-    
+
 
     useEffect(() => {
         getAllDiscountProductMaps();
@@ -137,7 +134,7 @@ const useDiscountProduct = () => {
         getDiscountsByProductId,
         addDiscountProductMapping,
         deleteDiscountProductMapping,
-        checkProductDiscount, 
+        checkProductDiscount,
         getDiscountIdByProductId,
         checkDiscountExists
     };

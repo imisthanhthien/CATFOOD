@@ -66,6 +66,7 @@ const deleteProductCategoryMapping = (req, res) => {
         res.status(200).json({ message: 'Mối quan hệ giữa sản phẩm và danh mục đã được xóa thành công' });
     });
 };
+
 // Cập nhật mối quan hệ giữa sản phẩm và danh mục
 const updateProductCategoryMapping = (req, res) => {
     const { productId, newCategoryId } = req.body;

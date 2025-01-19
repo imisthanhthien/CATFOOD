@@ -11,8 +11,8 @@ const useUsers = () => {
             setLoading(true);
             try {
                 const response = await axios.get('http://localhost:8081/users');
-                console.log("Dữ liệu trả về từ API:", response.data); // Log dữ liệu trả về
-                setUsers(response.data);  // Set users từ kết quả trả về
+                console.log("Dữ liệu trả về từ API:", response.data); 
+                setUsers(response.data);  
             } catch (err) {
                 setError('Đã xảy ra lỗi khi kết nối với server');
             } finally {
@@ -26,7 +26,7 @@ const useUsers = () => {
         try {
             const response = await axios.post('http://localhost:8081/users', user);
             console.log("Dữ liệu trả về sau khi thêm người dùng:", response.data);
-            setUsers((prevUsers) => [...prevUsers, response.data]);  // Thêm người dùng mới vào danh sách
+            setUsers((prevUsers) => [...prevUsers, response.data]); 
         } catch (err) {
             setError('Đã xảy ra lỗi khi thêm người dùng');
         }
@@ -36,7 +36,7 @@ const useUsers = () => {
         try {
             const response = await axios.put(`http://localhost:8081/users/${user.id}`, user);
             console.log("Dữ liệu trả về sau khi cập nhật người dùng:", response.data);
-            setUsers((prevUsers) => prevUsers.map((u) => (u.id === response.data.id ? response.data : u)));  // Cập nhật người dùng
+            setUsers((prevUsers) => prevUsers.map((u) => (u.id === response.data.id ? response.data : u)));  
         } catch (err) {
             setError('Đã xảy ra lỗi khi chỉnh sửa người dùng');
         }
@@ -46,7 +46,7 @@ const useUsers = () => {
         try {
             const response = await axios.delete(`http://localhost:8081/users/${id}`);
             console.log("Dữ liệu trả về sau khi xóa người dùng:", response.data);
-            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));  // Cập nhật lại danh sách sau khi xóa
+            setUsers((prevUsers) => prevUsers.filter((user) => user.id !== id));  
         } catch (err) {
             setError('Không thể xóa người dùng');
         }

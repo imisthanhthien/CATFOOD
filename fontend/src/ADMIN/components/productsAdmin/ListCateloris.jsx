@@ -16,7 +16,6 @@ import { GridRowModes, DataGrid, GridToolbarContainer, GridActionsCellItem, Grid
 
 export default function ListCateloris({ data }) {
   const { categories, addCategory, updateCategory, deleteCategory } = useCategories();
-
   const [rows, setRows] = useState([]);
   const [rowModesModel, setRowModesModel] = useState({});
   const [openDialog, setOpenDialog] = useState(false);
@@ -24,7 +23,7 @@ export default function ListCateloris({ data }) {
 
   useEffect(() => {
     if (Array.isArray(data)) {
-      setRows(data);  // Cập nhật rows khi có dữ liệu mới
+      setRows(data);  
     }
   }, [data]);
 

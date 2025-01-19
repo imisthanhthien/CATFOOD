@@ -7,7 +7,7 @@ router.get('/product/:productId', productCategoryMapController.getCategoriesByPr
 router.get('/category/:categoryId', productCategoryMapController.getProductsByCategoryId);
 router.get('/relations', productCategoryMapController.getAllProductCategoryRelations);
 router.post('/', productCategoryMapController.addProductCategoryMapping);
-router.delete('/product/:productId/category/:categoryId', productCategoryMapController.deleteProductCategoryMapping);
 router.put('/update', productCategoryMapController.updateProductCategoryMapping);
+router.delete('/product/:productId/category/:categoryId', productCategoryMapController.deleteProductCategoryMapping);
 
 module.exports = router;

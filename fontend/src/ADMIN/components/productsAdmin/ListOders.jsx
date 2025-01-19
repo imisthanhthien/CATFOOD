@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'; // Thêm useEffect vào đây
+import React, { useState, useEffect } from 'react'; 
 import useOrders from '../../../hooks/useOders';
 import useOrderItems from '../../../hooks/useOderItem';
 import useProducts from '../../../hooks/useProducts';
@@ -14,14 +14,13 @@ const ListOrders = () => {
     const { orders, deleteOrderById, updateOrderStatus, actionLoading, actionError } = useOrders();
     const { addOrderItem } = useOrderItems();
     const { updateProductById, fetchProductQuantityById } = useProducts();
-    const { customers } = useCustomers(); // Lấy danh sách khách hàng từ useCustomers
+    const { customers } = useCustomers(); 
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [orderDetail, setOrderDetail] = useState(null);
     const [selectedStatus, setSelectedStatus] = useState('');
     const [isCustomerModalOpen, setIsCustomerModalOpen] = useState(false);
     const [customerDetail, setCustomerDetail] = useState(null);
 
-    // Lọc và lấy tên khách hàng từ danh sách customers
     const getCustomerNameById = (customerId) => {
         const customer = customers.find(customer => customer.id === customerId);
         return customer ? customer.name : 'Khách hàng không tồn tại';
@@ -29,7 +28,7 @@ const ListOrders = () => {
 
     const handleViewCustomerDetail = (customerId) => {
         const customer = customers.find(customer => customer.id === customerId);
-        setCustomerDetail(customer); // Gán thông tin khách hàng
+        setCustomerDetail(customer);
         setIsCustomerModalOpen(true);
     };
 
@@ -57,7 +56,7 @@ const ListOrders = () => {
                     price: parseFloat(product.price),
                     time: new Date().toISOString(),
                 };
-            }); 
+            });
 
             await updateOrderStatus(order.id, 'shipping');
             console.log(order.id);
@@ -103,17 +102,15 @@ const ListOrders = () => {
         setCustomerDetail(null);
     };
 
-    // Lọc đơn hàng theo trạng thái được chọn từ dropdown
+
     const filteredOrders = orders.filter(order => {
-        if (selectedStatus === '') return true; // Nếu không chọn trạng thái nào thì hiển thị tất cả
+        if (selectedStatus === '') return true; 
         return order.status === selectedStatus;
     });
 
     return (
         <div className="p-6">
             <h2 className="text-2xl font-bold mb-6">Danh Sách Đơn Hàng</h2>
-
-            {/* Dropdown để chọn trạng thái đơn hàng */}
             <div className="mb-4">
                 <label htmlFor="status" className="mr-2">Chọn trạng thái:</label>
                 <select
@@ -151,7 +148,7 @@ const ListOrders = () => {
                                         onClick={() => handleViewCustomerDetail(order.customer_id)}
                                         className="text-blue-500 hover:text-blue-700"
                                     >
-                                        {getCustomerNameById(order.customer_id)} {/* Lấy tên khách hàng từ danh sách */}
+                                        {getCustomerNameById(order.customer_id)} 
                                     </button>
                                 </td>
                                 <td className="px-4 py-2 border-b">
@@ -199,40 +196,39 @@ const ListOrders = () => {
 
             {/* Modal hiển thị thông tin khách hàng */}
             {isCustomerModalOpen && customerDetail && (
-                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-                 <div className="bg-white p-10 rounded-lg w-full max-w-3xl relative max-h-[90vh] overflow-auto shadow-xl transform transition-all duration-500 ease-in-out scale-95 hover:scale-100">
-                     <h3 className="text-4xl font-semibold text-center mb-8 text-gray-900">Thông tin khách hàng</h3>
-         
-                     <div className="space-y-5">
-                         <div className="flex justify-start items-center space-x-4">
-                             <p className="font-medium text-gray-800 w-32">Tên:</p>
-                             <p className="text-gray-600 flex-1">{customerDetail.name}</p>
-                         </div>
-                         <div className="flex justify-start items-center space-x-4">
-                             <p className="font-medium text-gray-800 w-32">Email:</p>
-                             <p className="text-gray-600 flex-1">{customerDetail.email}</p>
-                         </div>
-                         <div className="flex justify-start items-center space-x-4">
-                             <p className="font-medium text-gray-800 w-32">Địa chỉ:</p>
-                             <p className="text-gray-600 flex-1">{customerDetail.address}</p>
-                         </div>
-                         <div className="flex justify-start items-center space-x-4">
-                             <p className="font-medium text-gray-800 w-32">Số điện thoại:</p>
-                             <p className="text-gray-600 flex-1">{customerDetail.phone}</p>
-                         </div>
-                         {/* Thêm các thông tin khách hàng khác tại đây */}
-                     </div>
-         
-                     <div className="flex justify-center mt-8 space-x-4">
-                         <button
-                             onClick={closeCustomerModal}
-                             className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 transform hover:scale-105"
-                         >
-                             Đóng
-                         </button>
-                     </div>
-                 </div>
-             </div>
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+                    <div className="bg-white p-10 rounded-lg w-full max-w-3xl relative max-h-[90vh] overflow-auto shadow-xl transform transition-all duration-500 ease-in-out scale-95 hover:scale-100">
+                        <h3 className="text-4xl font-semibold text-center mb-8 text-gray-900">Thông tin khách hàng</h3>
+
+                        <div className="space-y-5">
+                            <div className="flex justify-start items-center space-x-4">
+                                <p className="font-medium text-gray-800 w-32">Tên:</p>
+                                <p className="text-gray-600 flex-1">{customerDetail.name}</p>
+                            </div>
+                            <div className="flex justify-start items-center space-x-4">
+                                <p className="font-medium text-gray-800 w-32">Email:</p>
+                                <p className="text-gray-600 flex-1">{customerDetail.email}</p>
+                            </div>
+                            <div className="flex justify-start items-center space-x-4">
+                                <p className="font-medium text-gray-800 w-32">Địa chỉ:</p>
+                                <p className="text-gray-600 flex-1">{customerDetail.address}</p>
+                            </div>
+                            <div className="flex justify-start items-center space-x-4">
+                                <p className="font-medium text-gray-800 w-32">Số điện thoại:</p>
+                                <p className="text-gray-600 flex-1">{customerDetail.phone}</p>
+                            </div>
+                        </div>
+
+                        <div className="flex justify-center mt-8 space-x-4">
+                            <button
+                                onClick={closeCustomerModal}
+                                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-400 transition duration-300 transform hover:scale-105"
+                            >
+                                Đóng
+                            </button>
+                        </div>
+                    </div>
+                </div>
             )}
 
             {/* Modal chi tiết đơn hàng */}
@@ -252,11 +248,11 @@ const ListOrders = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {orderDetail.map((product) => ( 
+                                {orderDetail.map((product) => (
                                     <tr key={product.id}>
                                         <td className="px-4 py-2 border-b">
                                             <img
-                                                src={`http://localhost:8081/${product.image}`} 
+                                                src={`http://localhost:8081/${product.image}`}
                                                 alt={product.name}
                                                 className="w-16 h-16 object-cover rounded"
                                             />

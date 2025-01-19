@@ -7,9 +7,9 @@ const useStatistics = () => {
         bestSellingProduct: null,
         revenueByDate: [],
         stockStatus: [],
-        revenueByMonth: [], // Thêm state cho doanh thu theo tháng
-        revenueByQuarter: [], // Thêm state cho doanh thu theo quý
-        revenueByYear: [], // Thêm state cho doanh thu theo năm
+        revenueByMonth: [], 
+        revenueByQuarter: [], 
+        revenueByYear: [], 
     });
     const [loading, setLoading] = useState(false);
     const [error, setError] = useState(null);
@@ -122,9 +122,9 @@ const useStatistics = () => {
                 fetchBestSellingProduct(),
                 fetchRevenueByDate(),
                 fetchStockStatus(),
-                fetchRevenueByMonth(), // Thêm fetch cho doanh thu theo tháng
-                fetchRevenueByQuarter(), // Thêm fetch cho doanh thu theo quý
-                fetchRevenueByYear(), // Thêm fetch cho doanh thu theo năm
+                fetchRevenueByMonth(), 
+                fetchRevenueByQuarter(), 
+                fetchRevenueByYear(), 
             ]);
         } catch (err) {
             setError("Đã xảy ra lỗi khi lấy dữ liệu thống kê.");
@@ -145,9 +145,9 @@ const useStatistics = () => {
         fetchBestSellingProduct,
         fetchRevenueByDate,
         fetchStockStatus,
-        fetchRevenueByMonth, // Thêm hook trả về
-        fetchRevenueByQuarter, // Thêm hook trả về
-        fetchRevenueByYear, // Thêm hook trả về
+        fetchRevenueByMonth, 
+        fetchRevenueByQuarter,
+        fetchRevenueByYear, 
         fetchAllStatistics,
     };
 };

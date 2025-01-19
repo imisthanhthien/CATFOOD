@@ -1,5 +1,5 @@
 import React from "react";
-import { useUserContext } from "./hooks/UserContext"; 
+import { useUserContext } from "./hooks/UserContext";
 
 const ProtectedRoute = ({ element, adminOnly = false }) => {
   const { user } = useUserContext();
@@ -48,7 +48,7 @@ const ProtectedRoute = ({ element, adminOnly = false }) => {
     );
   }
 
-  return element; 
+  return element;
 };
 
 export default ProtectedRoute;

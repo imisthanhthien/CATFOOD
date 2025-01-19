@@ -12,7 +12,6 @@ const getAllUsers = (callback) => {
     });
 };
 
-
 // Thêm người dùng mới
 const createUser = (userData, callback) => {
     const {id, name, phone, email } = userData;

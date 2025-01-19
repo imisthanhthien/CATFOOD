@@ -2,14 +2,14 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useOrders = () => {
-    const [orders, setOrders] = useState([]); 
-    const [order, setOrder] = useState(null); 
-    const [loading, setLoading] = useState(false); 
-    const [orderLoading, setOrderLoading] = useState(false); 
-    const [error, setError] = useState(null); 
-    const [orderError, setOrderError] = useState(null); 
-    const [actionLoading, setActionLoading] = useState(false); 
-    const [actionError, setActionError] = useState(null); 
+    const [orders, setOrders] = useState([]);
+    const [order, setOrder] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [orderLoading, setOrderLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [orderError, setOrderError] = useState(null);
+    const [actionLoading, setActionLoading] = useState(false);
+    const [actionError, setActionError] = useState(null);
 
     // Lấy tất cả đơn hàng
     useEffect(() => {
@@ -119,7 +119,7 @@ const useOrders = () => {
         addOrder,
         deleteOrderById,
         updateOrderById,
-        updateOrderStatus, 
+        updateOrderStatus,
     };
 };
 

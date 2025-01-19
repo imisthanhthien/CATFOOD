@@ -11,7 +11,7 @@ const About = () => {
         <p className="text-lg text-gray-600 mb-12 max-w-3xl mx-auto opacity-80">
           Chúng tôi là một cửa hàng cung cấp thức ăn, đồ chơi, và sản phẩm chăm sóc cho những người bạn mèo. Với cam kết mang đến những sản phẩm chất lượng cao, chúng tôi luôn muốn chăm sóc mèo của bạn như chính con của mình!
         </p>
- 
+
         <div className="bg-white shadow-xl rounded-lg p-8 mb-16 transform hover:scale-105 transition-all duration-500 ease-out">
           <h2 className="text-3xl font-bold text-gray-800 mb-6">Sứ Mệnh Của Chúng Tôi</h2>
           <p className="text-lg text-gray-600">

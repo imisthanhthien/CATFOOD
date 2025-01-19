@@ -46,11 +46,11 @@ const useProducts = () => {
     const fetchProductByIdCart = async (productId) => {
         try {
             const response = await axios.get(`http://localhost:8081/products/${productId}`);
-            console.log("Fetched product:", response.data);  // Kiểm tra dữ liệu trả về
+            console.log("Fetched product:", response.data); 
             return response.data;
         } catch (error) {
             console.error('Lỗi khi lấy thông tin sản phẩm:', error);
-            return null;  // Trả về null nếu gặp lỗi
+            return null; 
         }
     };
 
@@ -58,7 +58,7 @@ const useProducts = () => {
     const fetchProductQuantityById = async (id) => {
         try {
             const response = await axios.get(`http://localhost:8081/products/quantity/${id}`);
-            return response.data;  // Giả sử API trả về số lượng sản phẩm
+            return response.data; 
         } catch (err) {
             console.error('Không thể lấy số lượng sản phẩm:', err);
             throw new Error('Không thể lấy số lượng sản phẩm.');
@@ -72,10 +72,10 @@ const useProducts = () => {
         try {
             const response = await axios.post('http://localhost:8081/products', newProduct);
             setProducts((prevProducts) => [...prevProducts, response.data]);
-            return response.data; // Trả về dữ liệu sản phẩm mới
+            return response.data;
         } catch (err) {
             setActionError('Đã xảy ra lỗi khi thêm sản phẩm.');
-            throw err; // Quăng lỗi để xử lý ở nơi gọi hàm
+            throw err; 
         } finally {
             setActionLoading(false);
         }

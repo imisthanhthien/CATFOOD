@@ -12,8 +12,6 @@ const getAllCategories = (callback) => {
     });
 };
 
-
-
 // Lấy danh mục sản phẩm theo ID
 const getCategoryById = (categoryId, callback) => {
     const sql = 'SELECT * FROM product_categories WHERE id = ?';

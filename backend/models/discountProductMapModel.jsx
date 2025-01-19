@@ -46,6 +46,7 @@ const getDiscountsByProductId = (productId, callback) => {
     });
 };
 
+//Thêm mối quan hệ giữa sản phẩm và giảm giá
 const addDiscountProductMapping = (discountId, productId, callback) => {
     const sql = 'INSERT INTO discount_product_map (discount_id, product_id) VALUES (?, ?)';
     db.query(sql, [discountId, productId], (err, results) => {
@@ -56,8 +57,6 @@ const addDiscountProductMapping = (discountId, productId, callback) => {
         callback(null, results);
     });
 };
-
-
 
 // Kiểm tra xem mối quan hệ giữa sản phẩm và giảm giá đã tồn tại chưa
 const checkDiscountProductExists = (productId, discountId, callback) => {
@@ -103,6 +102,7 @@ const deleteDiscountProductMapping = (discountId, productId, callback) => {
         callback(null, results);
     });
 };
+
 // Lấy discount_id từ product_id
 const getDiscountIdByProductId = (productId, callback) => {
     const sql = `
@@ -123,6 +123,7 @@ const getDiscountIdByProductId = (productId, callback) => {
     });
 };
 
+//Kiểm tra giảm giá tồn tại
 const checkDiscountExists = (discountId, callback) => {
     const query = 'SELECT COUNT(*) AS count FROM discount_product_map WHERE discount_id = ?';
     db.query(query, [discountId], (err, results) => {
@@ -133,8 +134,6 @@ const checkDiscountExists = (discountId, callback) => {
         callback(null, results[0].count > 0);
     });
 };
-
-
 
 module.exports = {
     getAllDiscountProductMaps,

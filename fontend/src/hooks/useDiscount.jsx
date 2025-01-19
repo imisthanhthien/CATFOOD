@@ -11,7 +11,7 @@ const useDiscount = () => {
     const getAllDiscounts = async () => {
         setLoading(true);
         try {
-            const response = await axios.get('http://localhost:8081/discounts'); // URL đầy đủ
+            const response = await axios.get('http://localhost:8081/discounts'); 
             setDiscounts(response.data);
             setLoading(false);
         } catch (err) {
@@ -24,7 +24,7 @@ const useDiscount = () => {
     const getDiscountByCode = async (code) => {
         setLoading(true);
         try {
-            const response = await axios.get(`http://localhost:8081/discounts/code/${code}`); // URL đầy đủ
+            const response = await axios.get(`http://localhost:8081/discounts/code/${code}`); 
             setDiscount(response.data);
             setLoading(false);
         } catch (err) {
@@ -37,7 +37,7 @@ const useDiscount = () => {
     const addDiscount = async (discountData) => {
         setLoading(true);
         try {
-            const response = await axios.post('http://localhost:8081/discounts', discountData); // URL đầy đủ
+            const response = await axios.post('http://localhost:8081/discounts', discountData); 
             setDiscounts((prevDiscounts) => [...prevDiscounts, response.data]);
             setLoading(false);
         } catch (err) {
@@ -50,8 +50,8 @@ const useDiscount = () => {
     const updateDiscount = async (id, updatedFields) => {
         setLoading(true);
         try {
-            const response = await axios.put(`http://localhost:8081/discounts/${id}`, updatedFields); // URL đầy đủ
-            setDiscounts((prevDiscounts) => 
+            const response = await axios.put(`http://localhost:8081/discounts/${id}`, updatedFields); 
+            setDiscounts((prevDiscounts) =>
                 prevDiscounts.map((d) => (d.id === id ? { ...d, ...updatedFields } : d))
             );
             setLoading(false);
@@ -65,7 +65,7 @@ const useDiscount = () => {
     const deleteDiscount = async (id) => {
         setLoading(true);
         try {
-            await axios.delete(`http://localhost:8081/discounts/${id}`); // URL đầy đủ
+            await axios.delete(`http://localhost:8081/discounts/${id}`); 
             setDiscounts((prevDiscounts) => prevDiscounts.filter((d) => d.id !== id));
             setLoading(false);
         } catch (err) {
@@ -75,7 +75,7 @@ const useDiscount = () => {
     };
 
     useEffect(() => {
-        getAllDiscounts(); // Lấy tất cả các giảm giá khi hook được khởi tạo
+        getAllDiscounts(); 
     }, []);
 
     return {

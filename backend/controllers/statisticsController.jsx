@@ -1,6 +1,6 @@
 const Statistics = require("../models/statisticsModel.jsx");
 
-// 1. Doanh thu theo sản phẩm
+//Doanh thu theo sản phẩm
 const getRevenueByProduct = (req, res) => {
     Statistics.getRevenueByProduct((err, data) => {
         if (err) {
@@ -10,7 +10,7 @@ const getRevenueByProduct = (req, res) => {
     });
 };
 
-// 2. Sản phẩm bán chạy nhất
+//Sản phẩm bán chạy nhất
 const getBestSellingProduct = (req, res) => {
     Statistics.getBestSellingProduct((err, data) => {
         if (err) {
@@ -20,7 +20,7 @@ const getBestSellingProduct = (req, res) => {
     });
 };
 
-// 3. Doanh thu theo ngày
+//Doanh thu theo ngày
 const getRevenueByDate = (req, res) => {
     Statistics.getRevenueByDate((err, data) => {
         if (err) {
@@ -30,7 +30,7 @@ const getRevenueByDate = (req, res) => {
     });
 };
 
-// 4. Tồn kho sản phẩm
+//Tồn kho sản phẩm
 const getStockStatus = (req, res) => {
     Statistics.getStockStatus((err, data) => {
         if (err) {
@@ -40,7 +40,7 @@ const getStockStatus = (req, res) => {
     });
 };
 
-// 5. Doanh thu theo tháng
+//Doanh thu theo tháng
 const getRevenueByMonth = (req, res) => {
     Statistics.getRevenueByMonth((err, data) => {
         if (err) {
@@ -50,7 +50,7 @@ const getRevenueByMonth = (req, res) => {
     });
 };
 
-// 6. Doanh thu theo quý
+//Doanh thu theo quý
 const getRevenueByQuarter = (req, res) => {
     Statistics.getRevenueByQuarter((err, data) => {
         if (err) {
@@ -60,7 +60,7 @@ const getRevenueByQuarter = (req, res) => {
     });
 };
 
-// 7. Doanh thu theo năm
+//Doanh thu theo năm
 const getRevenueByYear = (req, res) => {
     Statistics.getRevenueByYear((err, data) => {
         if (err) {

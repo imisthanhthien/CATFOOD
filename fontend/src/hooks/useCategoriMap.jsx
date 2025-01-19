@@ -19,11 +19,12 @@ const useCategoryMap = () => {
     }
   };
 
+  //Lấy danh mục sản phẩm từ mã sản phẩm
   const getCategoriesByProductId = async (productId) => {
     try {
         const response = await axios.get(`http://localhost:8081/category-map/product/${productId}`);
        
-        return response.data[0]?.id; // Nếu trả về mảng, lấy danh mục đầu tiên
+        return response.data[0]?.id; 
     } catch (error) {
         console.error("Lỗi khi lấy danh mục:", error);
         throw error;
@@ -75,11 +76,11 @@ const useCategoryMap = () => {
     }
   };
   
+  //Update loại sản phẩm và danh mục sản phẩm
   const updateCategoryMapping = async (productId, newCategoryId) => {
     setLoading(true);
     try {
       const response = await axios.put('http://localhost:8081/category-map/update', { productId, newCategoryId });
-      // Cập nhật dữ liệu trong state
       setData((prevData) =>
         prevData.map((map) =>
           map.product_id === productId
@@ -94,7 +95,6 @@ const useCategoryMap = () => {
       setLoading(false);
     }
 };
-
 
   useEffect(() => {
     fetchAllCategoryMaps();

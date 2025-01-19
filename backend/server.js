@@ -19,7 +19,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Sử dụng các route
 app.use('/products', productRouter);
 app.use('/customers', customerRouter);
 app.use('/orders', oderRouter);
@@ -30,7 +29,6 @@ app.use('/discounts', discountRouter);
 app.use('/discount-products', discountProductMapRouter);
 app.use('/order-discount-maps', orderDiscountMapRouter);
 app.use("/statistics", statisticsRoutes);
-
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 const imagesDir = path.join(__dirname, 'public', 'images', 'ImageProduct');
@@ -58,6 +56,7 @@ const upload = multer({
     limits: { fileSize: 5 * 1024 * 1024 } 
 });
 
+//upload ảnh lên server
 app.post('/upload', upload.single('file'), (req, res) => {
     if (req.file) {
         console.log("Ảnh đã được tải lên:", req.file); 

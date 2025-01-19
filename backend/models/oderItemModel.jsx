@@ -46,7 +46,6 @@ const addOrderItem = (orderItem, callback) => {
         orderItem.price,
         orderItem.time
     ];
-
     db.query(sql, values, (err, results) => {
         if (err) {
             console.error('Lỗi khi thêm chi tiết đơn hàng:', err);
@@ -55,6 +54,7 @@ const addOrderItem = (orderItem, callback) => {
         callback(null, results); 
     });
 };
+
 module.exports = {
     getAllOrderItems,
     searchOrderItemsByQuantityAndPrice,

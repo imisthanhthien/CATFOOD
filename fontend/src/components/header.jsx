@@ -98,9 +98,9 @@ const Header = () => {
           >
             <FaShoppingCart className="text-gray-800 text-xl" />
             {cartItemCount >= 0 && (
-            <span className="absolute top-[8px] right-[-8px] bg-red-500 text-white rounded-full text-[10px] px-1 py-0.5">
-            {cartItemCount}
-          </span>
+              <span className="absolute top-[8px] right-[-8px] bg-red-500 text-white rounded-full text-[10px] px-1 py-0.5">
+                {cartItemCount}
+              </span>
             )}
           </a>
         </div>

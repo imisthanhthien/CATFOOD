@@ -1,9 +1,5 @@
-// useCategories.js
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-
-// API base URL (thay thế nếu cần)
-
 
 const useCategories = () => {
     const [categories, setCategories] = useState([]);
@@ -14,20 +10,17 @@ const useCategories = () => {
     const getCategories = async () => {
         setLoading(true);
         try {
-          const response = await axios.get("http://localhost:8081/categories");
-        
-          // Chuyển đổi đối tượng có chỉ số thành mảng
-          const categoriesArray = Object.values(response.data); // Lấy giá trị của đối tượng thành mảng
-      
-          setCategories(categoriesArray); // Cập nhật state categories với mảng vừa chuyển đổi
+            const response = await axios.get("http://localhost:8081/categories");
+            const categoriesArray = Object.values(response.data); 
+            setCategories(categoriesArray); 
         } catch (err) {
-          setError("Có lỗi xảy ra khi lấy danh mục");
-          console.error(err);
+            setError("Có lỗi xảy ra khi lấy danh mục");
+            console.error(err);
         } finally {
-          setLoading(false);
+            setLoading(false);
         }
-      };
-      
+    };
+
     // Thêm danh mục sản phẩm
     const addCategory = async (category) => {
         try {
@@ -43,7 +36,7 @@ const useCategories = () => {
     const updateCategory = async (categoryId, updatedFields) => {
         try {
             const response = await axios.put(`http://localhost:8081/categories/${categoryId}`, updatedFields);
-            setCategories(categories.map(category => 
+            setCategories(categories.map(category =>
                 category.id === categoryId ? { ...category, ...updatedFields } : category
             ));
         } catch (err) {
@@ -63,10 +56,9 @@ const useCategories = () => {
         }
     };
 
-    // Gọi API khi hook được khởi tạo
     useEffect(() => {
         getCategories();
-    }, []); // Chỉ gọi khi component mount
+    }, []); 
 
     return {
         categories,

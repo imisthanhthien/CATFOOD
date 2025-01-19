@@ -2,18 +2,18 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useCustomers = () => {
-    const [customers, setCustomers] = useState([]); 
-    const [customer, setCustomer] = useState(null); 
-    const [loading, setLoading] = useState(false); 
-    const [customerLoading, setCustomerLoading] = useState(false); 
-    const [error, setError] = useState(null); 
-    const [customerError, setCustomerError] = useState(null); 
-    const [actionLoading, setActionLoading] = useState(false); 
-    const [actionError, setActionError] = useState(null); 
-    const [emailLoading, setEmailLoading] = useState(false); 
-    const [emailError, setEmailError] = useState(null); 
-    const [checkEmailLoading, setCheckEmailLoading] = useState(false); 
-    const [checkEmailError, setCheckEmailError] = useState(null); 
+    const [customers, setCustomers] = useState([]);
+    const [customer, setCustomer] = useState(null);
+    const [loading, setLoading] = useState(false);
+    const [customerLoading, setCustomerLoading] = useState(false);
+    const [error, setError] = useState(null);
+    const [customerError, setCustomerError] = useState(null);
+    const [actionLoading, setActionLoading] = useState(false);
+    const [actionError, setActionError] = useState(null);
+    const [emailLoading, setEmailLoading] = useState(false);
+    const [emailError, setEmailError] = useState(null);
+    const [checkEmailLoading, setCheckEmailLoading] = useState(false);
+    const [checkEmailError, setCheckEmailError] = useState(null);
 
     // Lấy tất cả khách hàng
     useEffect(() => {
@@ -77,18 +77,18 @@ const useCustomers = () => {
     // Kiểm tra email tồn tại
     const checkEmailExists = async (email) => {
         try {
-          const response = await axios.get(`http://localhost:8081/customers/check-email/${email}`);
-          
-          if (response.status === 200 && response.data.message === "Email đã tồn tại") {
-            return true;
-          }
-      
-          return false;
+            const response = await axios.get(`http://localhost:8081/customers/check-email/${email}`);
+
+            if (response.status === 200 && response.data.message === "Email đã tồn tại") {
+                return true;
+            }
+
+            return false;
         } catch (error) {
-          console.error('Lỗi khi kiểm tra email:', error);
-          return false;
+            console.error('Lỗi khi kiểm tra email:', error);
+            return false;
         }
-      };
+    };
 
     // Thêm khách hàng
     const addCustomer = async (newCustomer) => {
@@ -155,7 +155,7 @@ const useCustomers = () => {
         addCustomer,
         deleteCustomerById,
         updateCustomerById,
-        checkEmailExists, 
+        checkEmailExists,
     };
 };
 

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { DeleteProduct, UpdateProductQuantity,ClearCart  } from '../GioHang/cart';
+import { DeleteProduct, UpdateProductQuantity, ClearCart } from '../GioHang/cart';
 import { useUserContext } from "../hooks/UserContext";
 import useCustomers from '../hooks/useCustomers';
 import useOrders from '../hooks/useOders';
-import useProducts from '../hooks/useProducts'; 
+import useProducts from '../hooks/useProducts';
 
 import { Dialog, DialogActions, DialogContent, DialogTitle, TextField, Button, MenuItem, Select, InputLabel, FormControl } from '@mui/material';
 import axios from 'axios';
@@ -12,10 +12,10 @@ import axios from 'axios';
 const Cart = () => {
   const cartProducts = useSelector((state) => state.cart.CartArr);
   const dispatch = useDispatch();
-  const { product, fetchProductByIdCart} = useProducts(); // Thêm `products`
+  const { product, fetchProductByIdCart } = useProducts(); 
   const { user } = useUserContext();
   const { checkEmailExists, fetchIDCustomerByEmail, checkEmailLoading, checkEmailError } = useCustomers();
-  const { addOrder } = useOrders(); // Hook to add orders
+  const { addOrder } = useOrders(); 
 
   const [openDialog, setOpenDialog] = useState(false);
 
@@ -24,7 +24,7 @@ const Cart = () => {
     address: '',
     email: '',
     phone: '',
-    paymentMethod: '', // New field for payment method
+    paymentMethod: '', 
   });
 
   const [emailLoading, setEmailLoading] = useState(false);
@@ -60,54 +60,47 @@ const Cart = () => {
   };
 
   const handleSubmit = async () => {
-
-   
-    // Check if email exists, if not, add customer first
     const customerExists = await checkEmailExists(formData.email.trim());
 
     if (!customerExists) {
-        try {
-            // Add new customer if email does not exist
-            await axios.post('http://localhost:8081/customers', {
-                name: formData.fullName,
-                address: formData.address,
-                email: formData.email,
-                phone: formData.phone,
-            });
-        } catch (error) {
-            console.error("Error adding new customer:", error);
-            alert("Có lỗi xảy ra khi thêm khách hàng.");
-            return;
-        }
+      try {
+        await axios.post('http://localhost:8081/customers', {
+          name: formData.fullName,
+          address: formData.address,
+          email: formData.email,
+          phone: formData.phone,
+        });
+      } catch (error) {
+        console.error("Error adding new customer:", error);
+        alert("Có lỗi xảy ra khi thêm khách hàng.");
+        return;
+      }
     } else {
     }
-    // Lấy ID khách hàng từ email
     const customerID = await fetchIDCustomerByEmail(formData.email.trim());
-    // Convert cart products to JSON string for order detail
     const orderDateVN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' });
     const orderDateISO = new Date(orderDateVN).toISOString();
-    
+
     const orderData = {
-        customer_id: customerID,
-        order_date: orderDateISO, 
-        status: "pending",
-        total_price: cartProducts.reduce((total, product) => total + product.price * product.quantity, 0),
-        
-        detail_order: JSON.stringify(cartProducts)  // Save cart products as JSON
+      customer_id: customerID,
+      order_date: orderDateISO,
+      status: "pending",
+      total_price: cartProducts.reduce((total, product) => total + product.price * product.quantity, 0),
+
+      detail_order: JSON.stringify(cartProducts) 
     };
 
     try {
-        // Send order data to API
-        await addOrder(orderData);
-        alert("Đơn hàng đã được đặt thành công!");
-        // Clear cart after placing the order
-        dispatch(ClearCart());
-        setOpenDialog(false); 
+      await addOrder(orderData);
+      alert("Đơn hàng đã được đặt thành công!");
+      dispatch(ClearCart());
+      setOpenDialog(false);
+
     } catch (error) {
-        console.error("Error placing order:", error);
-        alert("Có lỗi xảy ra khi đặt hàng.");
+      console.error("Error placing order:", error);
+      alert("Có lỗi xảy ra khi đặt hàng.");
     }
-};
+  };
 
 
   const handlePayment = () => {
@@ -121,21 +114,21 @@ const Cart = () => {
 
   const handleQuantityChange = async (productId, newQuantity) => {
     if (newQuantity < 1) {
-        newQuantity = 1;
+      newQuantity = 1;
     }
     const product = await fetchProductByIdCart(productId);
     if (!product || product.quantity === undefined) {
-        console.error("Không thể lấy thông tin sản phẩm hoặc số lượng không tồn tại.");
-        alert("Không thể lấy thông tin sản phẩm.");
-        return;
+      console.error("Không thể lấy thông tin sản phẩm hoặc số lượng không tồn tại.");
+      alert("Không thể lấy thông tin sản phẩm.");
+      return;
     }
-    const { quantity: productQuantity } = product;  
+    const { quantity: productQuantity } = product;
     if (newQuantity > productQuantity) {
-        alert("Số lượng sản phẩm trong giỏ vượt quá số lượng có sẵn!");
-        return;
+      alert("Số lượng sản phẩm trong giỏ vượt quá số lượng có sẵn!");
+      return;
     }
     dispatch(UpdateProductQuantity({ id: productId, quantity: newQuantity }));
-};
+  };
 
 
   return (

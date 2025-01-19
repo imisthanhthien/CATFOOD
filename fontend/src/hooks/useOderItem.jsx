@@ -2,14 +2,12 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 
 const useOrders = () => {
-
-    const [orderItems, setOrderItems] = useState([]); 
+    const [orderItems, setOrderItems] = useState([]);
     const [loading, setLoading] = useState(false);
-    const [error, setError] = useState(null); 
+    const [error, setError] = useState(null);
     const [actionLoading, setActionLoading] = useState(false);
-    const [actionError, setActionError] = useState(null); 
+    const [actionError, setActionError] = useState(null);
 
-    
     // Lấy danh sách order_items
     const fetchOrderItems = async () => {
         setLoading(true);

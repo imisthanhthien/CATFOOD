@@ -32,23 +32,21 @@ const getDiscountsByProductId = (req, res) => {
     });
 };
 
+//Thêm mối quan hệ giữa giảm giá và sản phẩm
 const addDiscountProductMapping = (req, res) => {
-    const { discount_id, product_id } = req.body;  // Kiểm tra lại cách nhận dữ liệu, nếu bạn dùng params thì để req.params.
+    const { discount_id, product_id } = req.body;  
 
-    console.log('Received data:', discount_id, product_id);  // Đảm bảo rằng discount_id và product_id không bị thiếu hoặc sai.
+    console.log('Received data:', discount_id, product_id);  
 
     discountProductMapModel.addDiscountProductMapping(discount_id, product_id, (err, results) => {
         if (err) {
-            console.error('Error from model:', err);  // Log chi tiết lỗi từ model
+            console.error('Error from model:', err);  
             return res.status(500).json({ error: 'Có lỗi xảy ra khi thêm mối quan hệ', details: err.message || err });
         }
-        console.log('Results from model:', results);  // Log kết quả trả về từ model.
+        console.log('Results from model:', results); 
         return res.status(200).json({ message: 'Giảm giá đã được thêm vào sản phẩm', data: results });
     });
 };
-
-
-
 
 // Xóa mối quan hệ giảm giá và sản phẩm
 const deleteDiscountProductMapping = (req, res) => {
@@ -72,6 +70,7 @@ const checkProductDiscount = (req, res) => {
         res.status(200).json({ productId, isDiscounted });
     });
 };
+
 // Lấy discount_id từ product_id
 const getDiscountIdByProductId = (req, res) => {
     const { productId } = req.params;
@@ -87,6 +86,7 @@ const getDiscountIdByProductId = (req, res) => {
     });
 };
 
+//Kiểm tra tồn tại giảm giá
 const checkDiscountExists = (req, res) => {
     const { discountId } = req.params;
 

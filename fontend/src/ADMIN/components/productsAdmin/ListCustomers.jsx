@@ -21,14 +21,10 @@ const ListCustomers = () => {
     const [isEditing, setIsEditing] = useState(false);
     const [editingCustomerId, setEditingCustomerId] = useState(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-
-    // Pagination states
     const [currentPage, setCurrentPage] = useState(1);
+    const [searchQuery, setSearchQuery] = useState('');
     const customersPerPage = 7;
     const totalCustomers = customers.length;
-
-    // Search query state
-    const [searchQuery, setSearchQuery] = useState('');
 
     const handleChange = (e) => {
         const { name, value } = e.target;
@@ -40,7 +36,7 @@ const ListCustomers = () => {
 
     const handleSearchChange = (e) => {
         setSearchQuery(e.target.value);
-        setCurrentPage(1); // Reset to first page on search change
+        setCurrentPage(1);
     };
 
     const handleSubmit = async (e) => {
@@ -107,11 +103,8 @@ const ListCustomers = () => {
         });
     };
 
-    // Pagination Logic
     const indexOfLastCustomer = currentPage * customersPerPage;
     const indexOfFirstCustomer = indexOfLastCustomer - customersPerPage;
-    
-    // Filter customers by search query
     const filteredCustomers = customers.filter((customer) =>
         customer.name.toLowerCase().includes(searchQuery.toLowerCase())
     );
@@ -123,55 +116,53 @@ const ListCustomers = () => {
 
     return (
         <div className="p-6 space-y-6">
-            {/* Add Customer Button */}
             <div className="flex justify-between mb-4">
-    {/* Add Customer Button */}
-    <button 
-        onClick={openModal}
-        className="px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-500 hover:to-green-700 focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out flex items-center space-x-2"
-    >
-        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-        </svg>
-        <span>Thêm Khách Hàng</span>
-    </button>
+                <button
+                    onClick={openModal}
+                    className="px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-500 hover:to-green-700 focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out flex items-center space-x-2"
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                    </svg>
+                    <span>Thêm Khách Hàng</span>
+                </button>
 
-    {/* Search Filter */}
-    <div className="ml-4 flex-grow relative">
-    <input
-        type="text"
-        placeholder="Tìm kiếm theo tên khách hàng..."
-        value={searchQuery}
-        onChange={handleSearchChange}
-        className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400"
-    />
-    
-    {/* Search Icon (Heroicons) */}
-    <svg
-        xmlns="http://www.w3.org/2000/svg"
-        className="h-5 w-5 text-gray-800 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-    >
-        <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M21 21l-4.35-4.35M19 10a7 7 0 10-7 7 7 7 0 007-7z"
-        />
-    </svg>
-</div>
+                {/* Search Filter */}
+                <div className="ml-4 flex-grow relative">
+                    <input
+                        type="text"
+                        placeholder="Tìm kiếm theo tên khách hàng..."
+                        value={searchQuery}
+                        onChange={handleSearchChange}
+                        className="w-full p-3 pr-10 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400"
+                    />
 
-</div>
-            
+                    {/* Search Icon (Heroicons) */}
+                    <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        className="h-5 w-5 text-gray-800 absolute right-3 top-1/2 transform -translate-y-1/2 cursor-pointer"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                    >
+                        <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 21l-4.35-4.35M19 10a7 7 0 10-7 7 7 7 0 007-7z"
+                        />
+                    </svg>
+                </div>
+
+            </div>
+
             {/* Conditional Display: Table or No Customers */}
             {filteredCustomers.length === 0 ? (
                 <p className="text-center text-gray-600">Chưa có khách hàng nào.</p>
             ) : (
                 <table className="min-w-full mt-4 table-auto border-collapse border border-gray-300 rounded-lg shadow-lg">
                     <thead>
-                       <tr className="bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg uppercase">
+                        <tr className="bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg uppercase">
                             <th className="px-6 py-2 border-b">Tên</th>
                             <th className="px-6 py-2 border-b">Email</th>
                             <th className="px-6 py-2 border-b">Số điện thoại</th>
@@ -188,8 +179,8 @@ const ListCustomers = () => {
                                 <td className="px-6 py-3 border-b text-gray-700">{customer.address}</td>
                                 <td className="px-6 py-3 border-b flex space-x-4 justify-center">
                                     {/* Edit Button with Icon */}
-                                    <button 
-                                        onClick={() => handleEditCustomer(customer)} 
+                                    <button
+                                        onClick={() => handleEditCustomer(customer)}
                                         className="px-4 py-2 bg-yellow-500 text-white rounded-md shadow-md hover:bg-yellow-600 transition duration-300 flex items-center space-x-2"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -198,8 +189,8 @@ const ListCustomers = () => {
                                         <span>Sửa</span>
                                     </button>
                                     {/* Delete Button with Icon */}
-                                    <button 
-                                        onClick={() => handleDeleteCustomer(customer.id)} 
+                                    <button
+                                        onClick={() => handleDeleteCustomer(customer.id)}
                                         className="px-4 py-2 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition duration-300 flex items-center space-x-2"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -228,79 +219,79 @@ const ListCustomers = () => {
                     ))}
                 </div>
             )}
-        
+
             {/* Modal */}
             {isModalOpen && (
-    <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
-        <div className="bg-white p-8 rounded-lg w-full sm:w-96 shadow-2xl transform transition-all duration-300 ease-out scale-95 hover:scale-100">
-            <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center uppercase">{isEditing ? 'Sửa Khách Hàng' : 'Thêm Khách Hàng'}</h3>
-            <form onSubmit={handleSubmit} className="space-y-6">
-                <div>
-                    <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Tên:</label>
-                    <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
-                        required
-                    />
+                <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
+                    <div className="bg-white p-8 rounded-lg w-full sm:w-96 shadow-2xl transform transition-all duration-300 ease-out scale-95 hover:scale-100">
+                        <h3 className="text-2xl font-semibold text-gray-800 mb-6 text-center uppercase">{isEditing ? 'Sửa Khách Hàng' : 'Thêm Khách Hàng'}</h3>
+                        <form onSubmit={handleSubmit} className="space-y-6">
+                            <div>
+                                <label htmlFor="name" className="block text-sm font-semibold text-gray-700 mb-2">Tên:</label>
+                                <input
+                                    type="text"
+                                    id="name"
+                                    name="name"
+                                    value={formData.name}
+                                    onChange={handleChange}
+                                    className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">Email:</label>
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={formData.email}
+                                    onChange={handleChange}
+                                    className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Số điện thoại:</label>
+                                <input
+                                    type="text"
+                                    id="phone"
+                                    name="phone"
+                                    value={formData.phone}
+                                    onChange={handleChange}
+                                    className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
+                                    required
+                                />
+                            </div>
+                            <div>
+                                <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-2">Địa chỉ:</label>
+                                <textarea
+                                    id="address"
+                                    name="address"
+                                    value={formData.address}
+                                    onChange={handleChange}
+                                    className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
+                                    required
+                                />
+                            </div>
+                            <div className="flex justify-end space-x-4 mt-4">
+                                <button
+                                    type="button"
+                                    onClick={closeModal}
+                                    className="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-300"
+                                >
+                                    Hủy
+                                </button>
+                                <button
+                                    type="submit"
+                                    className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
+                                >
+                                    {isEditing ? 'Cập nhật' : 'Thêm'}
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
-                <div>
-                    <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">Email:</label>
-                    <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="phone" className="block text-sm font-semibold text-gray-700 mb-2">Số điện thoại:</label>
-                    <input
-                        type="text"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
-                        required
-                    />
-                </div>
-                <div>
-                    <label htmlFor="address" className="block text-sm font-semibold text-gray-700 mb-2">Địa chỉ:</label>
-                    <textarea
-                        id="address"
-                        name="address"
-                        value={formData.address}
-                        onChange={handleChange}
-                        className="w-full p-4 border border-gray-300 rounded-md focus:ring-4 focus:ring-blue-400 transition duration-200"
-                        required
-                    />
-                </div>
-                <div className="flex justify-end space-x-4 mt-4">
-                    <button 
-                        type="button" 
-                        onClick={closeModal}
-                        className="px-6 py-3 bg-gray-500 text-white rounded-md hover:bg-gray-600 transition duration-300"
-                    >
-                        Hủy
-                    </button>
-                    <button 
-                        type="submit" 
-                        className="px-6 py-3 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition duration-300"
-                    >
-                        {isEditing ? 'Cập nhật' : 'Thêm'}
-                    </button>
-                </div>
-            </form>
-        </div>
-    </div>
-)}
+            )}
 
         </div>
     );
