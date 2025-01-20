@@ -51,6 +51,7 @@ Tài khoản admin: adminclone@gmail.com
 Pass: admincolne@123
 
 =======TÀI KHOẢN BÁN HÀNG==========
+
 Tài khoản seller: seller1@gmail.com
 pass: seller1@123
 
