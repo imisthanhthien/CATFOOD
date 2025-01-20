@@ -13,7 +13,7 @@ import ProductDetail from './components/ProductDetail';
 import { UserProvider,useUserContext } from './hooks/UserContext';
 import AdminApp from './ADMIN/AdminApp';
 import ProtectedRoute from './ProtectedRoute';
-
+import Chat from './components/chat';
 const Layout = () => {
   const { user } = useUserContext();
 
@@ -36,6 +36,7 @@ const Layout = () => {
           <Route path="/admin/*" element={<ProtectedRoute element={<AdminApp />} adminOnly={true} />} />
         </Routes>
       </main>
+      <Chat/>
       {!isAdminPage && <Footer />} {/* Chỉ hiển thị Footer nếu không phải admin */}
     </div>
   );

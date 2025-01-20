@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Bar, Line, Pie } from "react-chartjs-2";
 import { saveAs } from 'file-saver';
+import { format } from "date-fns";
 import * as XLSX from 'xlsx';
 
 import {
@@ -198,6 +199,57 @@ function Statistics() {
       },
     ],
   };
+  
+  const revenueByDateDataChart = {
+    labels: statistics.revenueByDate.map((item) => format(new Date(item.order_date), 'dd/MM/yyyy')), // Định dạng ngày theo kiểu VN
+    datasets: [
+      {
+        label: "Doanh thu (VND)",
+        data: statistics.revenueByDate.map((item) => item.total_revenue),
+        backgroundColor: "rgba(75, 192, 192, 0.6)",
+        borderColor: "rgba(75, 192, 192, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+ 
+const revenueByMonthDataChart = {
+  labels: statistics.revenueByMonth.map((item) => item.month),
+  datasets: [
+    {
+      label: "Doanh thu (VND)",
+      data: statistics.revenueByMonth.map((item) => item.total_revenue),
+      backgroundColor: "rgba(75, 192, 192, 0.6)",
+      borderColor: "rgba(75, 192, 192, 1)",
+      borderWidth: 1,
+    },
+  ],
+};
+
+  const revenueByQuarterDataChart = {
+    labels: statistics.revenueByQuarter.map((item) => item.quarter),
+    datasets: [
+      {
+        label: "Doanh thu (VND)",
+        data: statistics.revenueByQuarter.map((item) => item.total_revenue),
+        backgroundColor: "rgba(153, 102, 255, 0.6)",
+        borderColor: "rgba(153, 102, 255, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
+  const revenueByYearDataChart = {
+    labels: statistics.revenueByYear.map((item) => item.year),
+    datasets: [
+      {
+        label: "Doanh thu (VND)",
+        data: statistics.revenueByYear.map((item) => item.total_revenue),
+        backgroundColor: "rgba(255, 159, 64, 0.6)",
+        borderColor: "rgba(255, 159, 64, 1)",
+        borderWidth: 1,
+      },
+    ],
+  };
 
   return (
     <div className="container mx-auto p-6">
@@ -226,113 +278,105 @@ function Statistics() {
 
       {/* Doanh thu theo ngày */}
       <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo ngày</h2>
-      <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
-        {statistics.revenueByDate.length > 0 ? (
-          <Line
-            data={{
-              labels: statistics.revenueByDate.map((item) => item.order_date),
-              datasets: [
-                {
-                  label: "Doanh thu (VND)",
-                  data: statistics.revenueByDate.map((item) => item.total_revenue),
-                  backgroundColor: [
-                    "rgba(54, 162, 235, 0.6)",
-                    "rgba(75, 192, 192, 0.6)",
-                    "rgba(255, 159, 64, 0.6)",
-                    "rgba(153, 102, 255, 0.6)",
-                    "rgba(255, 99, 132, 0.6)",
-                  ],
-                  borderColor: [
-                    "rgba(54, 162, 235, 1)",
-                    "rgba(75, 192, 192, 1)",
-                    "rgba(255, 159, 64, 1)",
-                    "rgba(153, 102, 255, 1)",
-                    "rgba(255, 99, 132, 1)",
-                  ],
-                  borderWidth: 2,
-                },
-              ],
-            }}
-            options={{ responsive: true }}
-          />
-        ) : (
-          <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo ngày.</p>
-        )}
-      </div>
+    <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
+      {statistics.revenueByDate.length > 0 ? (
+        <Bar data={revenueByDateDataChart} options={{ responsive: true }} />
+      ) : (
+        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo ngày.</p>
+      )}
+    </div>
 
       {/* Doanh thu theo tháng */}
       <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo tháng</h2>
-      <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
-        {statistics.revenueByMonth.length > 0 ? (
-          <Line
-            data={{
-              labels: statistics.revenueByMonth.map((item) => item.month),
-              datasets: [
-                {
-                  label: "Doanh thu (VND)",
-                  data: statistics.revenueByMonth.map((item) => item.total_revenue),
-                  borderColor: "rgba(255, 159, 64, 1)",
-                  backgroundColor: "rgba(255, 159, 64, 0.2)",
-                  pointBackgroundColor: "rgba(255, 159, 64, 1)",
-                  pointBorderColor: "#fff",
-                  pointRadius: 6,
-                },
-              ],
-            }}
-            options={{ responsive: true }}
-          />
-        ) : (
-          <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo tháng.</p>
-        )}
-      </div>
-
-      {/* Tồn kho sản phẩm */}
-      <h2 className="text-3xl font-semibold text-center mt-12 text-gray-800">Trạng thái tồn kho</h2>
-      <div className="w-full md:w-4/5 mx-auto h-96 border border-gray-300 rounded-lg p-8 bg-gray-50 shadow-lg">
-        {statistics.stockStatus.length > 0 ? (
-          <Pie
-            data={stockStatusDataChart}
-            options={{
-              responsive: true,
-              plugins: {
-                tooltip: {
-                  callbacks: {
-                    label: (tooltipItem) => {
-                      const label = tooltipItem.label || "";
-                      const quantity = tooltipItem.raw || 0;
-                      return `${label}: ${quantity} sản phẩm`;
-                    },
-                  },
-                },
-                legend: {
-                  position: "bottom",
-                  labels: {
-                    font: {
-                      size: 16,
-                      weight: "bold",
-                    },
-                    boxWidth: 25,
-                    padding: 25,
-                  },
-                },
-              },
-            }}
-          />
-        ) : (
-          <p className="text-center text-xl text-gray-500 py-20">Không có dữ liệu tồn kho sản phẩm.</p>
-        )}
-      </div>
-
-      {/* Sản phẩm bán chạy nhất */}
-      <h2 className="text-3xl font-semibold mt-12 text-gray-800">Sản phẩm bán chạy nhất</h2>
-      {statistics.bestSellingProduct ? (
-        <div>
-          <p className="text-lg"><strong className="font-semibold">Tên sản phẩm:</strong> {statistics.bestSellingProduct.product_name}</p>
-          <p className="text-lg"><strong className="font-semibold">Số lượng bán:</strong> {statistics.bestSellingProduct.total_quantity_sold}</p>
-        </div>
+    <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
+      {statistics.revenueByMonth.length > 0 ? (
+        <Bar data={revenueByMonthDataChart} options={{ responsive: true }} />
       ) : (
-        <p className="text-center text-gray-400 py-6">Không có dữ liệu sản phẩm bán chạy nhất.</p>
+        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo tháng.</p>
       )}
+    </div>
+      {/* Doanh thu theo quý */}
+    <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo quý</h2>
+    <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
+      {statistics.revenueByQuarter.length > 0 ? (
+        <Bar data={revenueByQuarterDataChart} options={{ responsive: true }} />
+      ) : (
+        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo quý.</p>
+      )}
+    </div>
+
+    {/* Doanh thu theo năm */}
+    <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo năm</h2>
+    <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
+      {statistics.revenueByYear.length > 0 ? (
+        <Bar data={revenueByYearDataChart} options={{ responsive: true }} />
+      ) : (
+        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo năm.</p>
+      )}
+    </div>
+
+      
+
+   {/* Tồn kho sản phẩm */}
+<h2 className="text-4xl font-semibold text-center mt-12 text-gray-800 uppercase">Trạng thái tồn kho</h2>
+<div className="w-full md:w-4/5 mx-auto h-full border border-gray-300 rounded-lg p-8 bg-white shadow-lg transition-all duration-300 hover:shadow-2xl hover:bg-gray-50">
+  {statistics.stockStatus.length > 0 ? (
+    <Pie
+      data={stockStatusDataChart}
+      options={{
+        responsive: true,
+        plugins: {
+          tooltip: {
+            callbacks: {
+              label: (tooltipItem) => {
+                const label = tooltipItem.label || "";
+                const quantity = tooltipItem.raw || 0;
+                return `${label}: ${quantity} sản phẩm`;
+              },
+            },
+          },
+          legend: {
+            position: "bottom",
+            labels: {
+              font: {
+                size: 20,  // Tăng kích thước chữ trong legend
+                weight: "bold",
+              },
+              boxWidth: 60,  // Tăng kích thước của các hộp màu trong legend
+              padding: 12,   // Tăng khoảng cách giữa các mục
+            },
+          },
+        },
+      }}
+      height={300}  // Tăng chiều cao của biểu đồ
+      width={300}   // Tăng chiều rộng của biểu đồ
+    />
+  ) : (
+    <p className="text-center text-xl text-gray-500 py-20">Không có dữ liệu tồn kho sản phẩm.</p>
+  )}
+</div>
+
+
+
+<h2 className="text-3xl font-semibold text-center mt-12 text-gray-800 uppercase">Sản phẩm bán chạy nhất</h2>
+<div className="w-full md:w-4/5 mx-auto bg-white rounded-lg shadow-lg p-6 mt-6 transition-all duration-300 hover:shadow-2xl hover:bg-gray-50">
+  {statistics.bestSellingProduct ? (
+    <div className="flex items-center justify-between">
+      <div className="flex items-center space-x-4">
+
+        <span className="text-4xl text-yellow-500">&#x1F3C6;</span>
+        <div>
+          <p className="text-lg mb-4"><strong className="font-semibold text-gray-800">Tên sản phẩm:</strong> {statistics.bestSellingProduct.product_name}</p>
+          <p className="text-lg"><strong className="font-semibold text-gray-800">Số lượng bán:</strong> {statistics.bestSellingProduct.total_quantity_sold}</p>
+        </div>
+      </div>
+      <div className="text-2xl text-yellow-600 font-semibold">Top 1</div>
+    </div>
+  ) : (
+    <p className="text-center text-xl text-gray-50  0 py-6">Không có dữ liệu sản phẩm bán chạy nhất.</p>
+  )}
+</div>
+
 
       {/* Nút xuất ở góc dưới bên phải */}
       <div className="fixed bottom-6 right-6 flex space-x-4">

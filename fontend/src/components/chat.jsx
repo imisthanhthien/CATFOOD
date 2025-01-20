@@ -1,71 +1,69 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useState } from "react";
 
 const Chat = () => {
-  const customerChatRef = useRef(null); // Khai báo ref bằng useRef
+  const [showTooltip, setShowTooltip] = useState(false);
 
+  // Tạo một hàm hiển thị tooltip ngẫu nhiên
   useEffect(() => {
-    // Kiểm tra nếu Facebook SDK chưa được tải
-    if (!window.FB) {
-      (function (d, s, id) {
-        var js, fjs = d.getElementsByTagName(s)[0];
-        if (d.getElementById(id)) return;
-        js = d.createElement(s); js.id = id;
-        js.src = "https://connect.facebook.net/en_US/sdk/xfbml.customerchat.js";
-        fjs.parentNode.insertBefore(js, fjs);
-        js.onload = () => {
-          if (window.FB) {
-            window.FB.init({
-              appId: "589622557339885", 
-              xfbml: true,
-              version: "v11.0",
-            });
+    const timer = setInterval(() => {
+      setShowTooltip(true);
+      setTimeout(() => {
+        setShowTooltip(false);
+      }, 3000); 
+    }, Math.random() * 10000 + 5000); 
 
-            // Khởi tạo plugin chat Messenger
-            if (customerChatRef.current) {
-              window.FB.CustomerChat.setRef(customerChatRef.current);
-            }
-          }
-        };
-      })(document, "script", "facebook-jssdk");
-    } else {
-      window.FB.init({
-        appId: "589622557339885", // Thay YOUR_APP_ID bằng App ID của bạn
-        xfbml: true,
-        version: "v11.0",
-      });
-
-      // Khởi tạo plugin chat Messenger
-      if (customerChatRef.current) {
-        window.FB.CustomerChat.setRef(customerChatRef.current);
-      }
-    }
+    return () => clearInterval(timer); 
   }, []);
-
-  const handleChatClick = () => {
-    // Khi người dùng nhấn vào icon chat, mở cửa sổ Messenger
-    if (window.FB) {
-      window.FB.CustomerChat.show();
-    }
-  };
 
   return (
     <div>
-      {/* Biểu tượng Messenger */}
-      <div className="fixed bottom-10 right-10">
-        <div
-          className="bg-blue-600 p-3 rounded-full text-white shadow-lg cursor-pointer"
-          onClick={handleChatClick}
-        >
-          <i className="fab fa-facebook-messenger text-2xl"></i>
+      {/* Icon Zalo */}
+      <a
+        href="https://zalo.me/0336165737"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-16 right-4 transform animate-rotateSmooth rounded-full w-12 h-12 flex justify-center items-center transition-all duration-300 bg-transparent z-10"
+      >
+        <img
+          src="/public/icons8-zalo.svg"
+          alt="Zalo"
+          className="w-full h-full object-contain"
+        />
+      </a>
+
+      {/* Tooltip Zalo (hiển thị bên trái icon) */}
+      {showTooltip && (
+        <div className="fixed bottom-16 right-20  text-black text-xs py-2 px-4 rounded-lg  opacity-90 transform scale-105 transition-all duration-300 ease-in-out max-w-xs">
+          <div className="p-2 bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 rounded-md shadow-md text-white relative">
+            <span>Chat với chúng tôi trên Zalo</span>
+            <div className="absolute right-[-8px] top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent"></div> {/* Bỏ viền trắng ở đây */}
+          </div>
         </div>
-      </div>
-     
-      <div
-        className="fb-customerchat"
-        attribution="setup_tool"
-        page_id="100017528383929" 
-        ref={customerChatRef} 
-      ></div>
+      )}
+
+      {/* Icon Messenger */}
+      <a
+        href="https://m.me/catfoodreactjs"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-3 right-4 transform animate-wave rounded-full w-12 h-12 flex justify-center items-center transition-all duration-300 bg-transparent z-0"
+      >
+        <img
+          src="/public/icons8-facebook-messenger.svg"
+          alt="Messenger"
+          className="w-full h-full object-contain"
+        />
+      </a>
+
+      {/* Tooltip Messenger (hiển thị bên trái icon) */}
+      {showTooltip && (
+        <div className="fixed bottom-3 right-20  text-black text-xs py-2 px-4 rounded-lg  opacity-90 transform scale-105 transition-all duration-300 ease-in-out max-w-xs">
+          <div className="p-2 bg-gradient-to-r from-pink-400 via-purple-500 to-indigo-600 rounded-md shadow-md text-white relative">
+            <span>Chat với chúng tôi trên Messenger</span>
+            <div className="absolute right-[-8px] top-1/2 transform -translate-y-1/2 w-0 h-0 border-l-8 border-r-8 border-t-8 border-transparent"></div> {/* Bỏ viền trắng ở đây */}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

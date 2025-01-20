@@ -2,7 +2,7 @@ import React from 'react';
 
 const Contact = () => {
   return (
-    <div className="bg-gray-50 min-h-screen flex flex-col items-center justify-center py-12 px-6">
+    <div className=" min-h-screen flex flex-col items-center justify-center py-12 px-6">
       <div className="bg-white w-full max-w-3xl shadow-xl rounded-lg p-8 transform hover:scale-105 transition-all duration-500 ease-out">
 
         <h1 className="text-5xl font-extrabold text-center text-gray-800 mb-6 drop-shadow-lg">
@@ -59,15 +59,15 @@ const Contact = () => {
           <div className="space-y-4 text-gray-600">
             <p className="flex justify-center items-center">
               <span className="mr-2 text-xl">📧</span>
-              <span>Email: <a href="mailto:support@meowshop.com" className="text-yellow-400 hover:underline transition-all duration-300 ease-in-out">support@meowshop.com</a></span>
+              <span>Email: <a href="mailto:support@meowshop.com" className="text-yellow-400 hover:underline transition-all duration-300 ease-in-out">support@abcxyz.com</a></span>
             </p>
             <p className="flex justify-center items-center">
               <span className="mr-2 text-xl">📞</span>
-              <span>Điện Thoại: <a href="tel:+123456789" className="text-yellow-400 hover:underline transition-all duration-300 ease-in-out">+123 456 789</a></span>
+              <span>Điện Thoại: <a href="" className="text-yellow-400 hover:underline transition-all duration-300 ease-in-out">+xxxxxxxx</a></span>
             </p>
             <p className="flex justify-center items-center">
               <span className="mr-2 text-xl">📍</span>
-              <span>Địa Chỉ: 123 Phố Mèo, Hà Nội, Việt Nam</span>
+              <span>Địa Chỉ: 123 Phố Mèo, xyz, Việt Nam</span>
             </p>
           </div>
         </div>

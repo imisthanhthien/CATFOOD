@@ -41,7 +41,7 @@ const getBestSellingProduct = (callback) => {
             p.id, p.name
         ORDER BY 
             total_quantity_sold DESC
-        LIMIT 1
+        LIMIT 3
     `;
     db.query(sql, (err, results) => {
         if (err) {

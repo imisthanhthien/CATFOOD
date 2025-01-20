@@ -69,11 +69,11 @@ const Products = () => {
   };
 
   const handlePriceRangeChange = (e) => {
-    const value = e.target.id; 
+    const value = e.target.id;
     setPriceRange((prev) =>
       e.target.checked
-        ? [...prev, value] 
-        : prev.filter((range) => range !== value) 
+        ? [...prev, value]
+        : prev.filter((range) => range !== value)
     );
   };
 
@@ -91,7 +91,7 @@ const Products = () => {
   const filterProducts = () => {
     const filtered = productsWithCategories.filter((product) => {
       const matchesPrice =
-        priceRange.length === 0 
+        priceRange.length === 0
           ? true
 
           : priceRange.some((range) => {
@@ -414,10 +414,10 @@ const Products = () => {
           disabled={currentPage === 1}
           className="px-4 py-2 text-sm text-gray-700 bg-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061A1.125 1.125 0 0 1 21 8.689v8.122ZM11.25 16.811c0 .864-.933 1.406-1.683.977l-7.108-4.061a1.125 1.125 0 0 1 0-1.954l7.108-4.061a1.125 1.125 0 0 1 1.683.977v8.122Z" />
-          </svg>
-
+          
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M7.707 14.707a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414l4-4a1 1 0 011.414 1.414L5.414 9H17a1 1 0 110 2H5.414l2.293 2.293a1 1 0 010 1.414z" clip-rule="evenodd" />
+</svg>
         </button>
 
         {[...Array(totalPages)].map((_, index) => (
@@ -425,8 +425,8 @@ const Products = () => {
             key={index}
             onClick={() => paginate(index + 1)}
             className={`px-4 py-2 text-sm rounded-3xl font-medium transition-all duration-300 transform ${currentPage === index + 1
-                ? 'bg-blue-500 text-white shadow-lg scale-105'  
-                : 'bg-white text-gray-700 hover:bg-gray-100 hover:scale-105'
+              ? 'bg-blue-500 text-white shadow-lg scale-105'
+              : 'bg-white text-gray-700 hover:bg-gray-100 hover:scale-105'
               }`}
           >
             {index + 1}
@@ -438,10 +438,10 @@ const Products = () => {
           disabled={currentPage === totalPages}
           className="px-4 py-2 text-sm text-gray-700 bg-white rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50"
         >
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M3 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061A1.125 1.125 0 0 1 3 16.811V8.69ZM12.75 8.689c0-.864.933-1.406 1.683-.977l7.108 4.061a1.125 1.125 0 0 1 0 1.954l-7.108 4.061a1.125 1.125 0 0 1-1.683-.977V8.69Z" />
-          </svg>
-
+        
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+  <path fill-rule="evenodd" d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z" clip-rule="evenodd" />
+</svg>
         </button>
       </div>
     </div>
@@ -523,19 +523,35 @@ const ProductCard = ({ product, handleAddToCart }) => {
           )}
         </p>
 
-        <div className="mt-3 flex gap-3">
+        <div className="mt-3 flex gap-3 ">
           <a
             href={productDetailUrl}
-            className="w-full flex items-center justify-center py-2 px-4 text-[#6B4F3D] font-medium text-sm rounded-lg border-2 border-black transition-all duration-300 ease-in-out hover:text-white hover:border-transparent hover:bg-[#6B4F3D] group"
+           className="relative w-full flex items-center justify-center py-2 px-4 text-black font-medium text-sm rounded-lg border-2 border-transparent bg-[#6B4F3D] overflow-hidden group transition-all duration-300 ease-in-out hover:text-white"
           >
-            <span className="icon group-hover:text-white transition-all duration-300 mr-2">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" className="bi bi-bag" viewBox="0 0 16 16">
+            {/* Hiệu ứng "sao băng ngược" */}
+            <span
+              className="  absolute inset-0  bg-white translate-x-0 transition-transform duration-500 ease-out group-hover:translate-x-full "
+            ></span>
+
+            {/* Nội dung nút */}
+            <span className=" relative z-10 flex items-center  hover:text-white">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                fill="currentColor"
+                className="bi bi-bag mr-2 text-current transition-all duration-300"
+                viewBox="0 0 16 16"
+              >
                 <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
               </svg>
+              <span className="text-current transition-all duration-300 ">
+                Chọn mua
+              </span>
             </span>
-            <span className="text group-hover:text-white transition-all duration-300">Chọn mua</span>
           </a>
         </div>
+
       </div>
     </div>
   );

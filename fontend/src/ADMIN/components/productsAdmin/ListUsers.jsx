@@ -8,6 +8,7 @@ const columns = [
   { field: "id", headerName: "UID", width: 300 },
   { field: "username", headerName: "Username", width: 150, editable: false },
   { field: "email", headerName: "Email", width: 250, editable: false },
+  { field: "phone", headerName: "Phone", width: 150, editable: false },
   { field: "role", headerName: "Vai trò", width: 100, editable: false },
   {
     field: "isDisabled",

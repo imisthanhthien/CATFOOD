@@ -126,7 +126,7 @@ const ProductDetail = () => {
       <div className="max-w-screen-xl mx-auto px-4 py-20">
         <div className="flex flex-col md:flex-row gap-8">
           {/* Hình ảnh sản phẩm */}
-          <div className="w-full md:w-1/2 flex justify-center items-center relative">
+          <div className="   w-full md:w-1/2 flex justify-center items-center relative">
             <img
               src={`http://localhost:8081/${product.image}`}
               alt={product.name}
@@ -137,12 +137,11 @@ const ProductDetail = () => {
             />
             {/* Nếu có giảm giá, hiển thị nhãn giảm giá */}
             {discountValue && (
-              <div className="absolute  bottom-[435px] right-20 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg transform scale-90 opacity-0 animate-fadeIn hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50 z-10">
+              <div className="absolute  bottom-[450px] right-20 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg transform scale-90 opacity-0 animate-fadeIn hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50 z-10">
                 Giảm {discountValue} %
               </div>
             )}
           </div>
-
 
           {/* Chi tiết sản phẩm */}
           <div className="w-full md:w-1/2 space-y-6 flex flex-col justify-between">
@@ -298,10 +297,10 @@ const ProductDetail = () => {
         <div className="my-1 border-t border-gray-300 w-full"></div>
 
         <div className="mt-8">
-          <h1 className="text-2xl font-bold mb-4 text-center">SẢN PHẨM LIÊN QUAN</h1>
+          <h1 className="text-4xl font-bold mb-10 text-center ">SẢN PHẨM LIÊN QUAN</h1>
           <Swiper
             modules={[Navigation, Pagination]}
-            spaceBetween={16}
+            spaceBetween={18}
             slidesPerView={3}
             navigation
             pagination={{ clickable: true }}
@@ -309,7 +308,7 @@ const ProductDetail = () => {
             breakpoints={{
               640: { slidesPerView: 2 },
               768: { slidesPerView: 3 },
-              1024: { slidesPerView: 4 },
+              1024:{ slidesPerView: 4 },
             }}
             className="p-4"
           >
@@ -359,19 +358,29 @@ const ProductDetail = () => {
                     <div className="mt-4">
                       <a
                         href={`/products/${relatedProduct.id}`}
-                        className="w-full flex items-center justify-center py-2 px-4 text-[#6B4F3D] font-medium text-sm rounded-lg border-2 border-black transition-all duration-300 ease-in-out hover:text-white hover:border-transparent hover:bg-[#6B4F3D] group"
+                        className="relative w-full flex items-center justify-center py-2 px-4 text-black font-medium text-sm rounded-lg border-2 border-transparent bg-[#6B4F3D] overflow-hidden group transition-all duration-300 ease-in-out hover:text-white"
                       >
-                        <svg
-                          xmlns="http://www.w3.org/2000/svg"
-                          width="16"
-                          height="16"
-                          fill="currentColor"
-                          className="inline-block mr-2"
-                          viewBox="0 0 16 16"
-                        >
-                          <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
-                        </svg>
-                        Chọn mua
+                        {/* Hiệu ứng "sao băng ngược" */}
+                        <span
+                          className="  absolute inset-0  bg-white translate-x-0 transition-transform duration-500 ease-out group-hover:translate-x-full "
+                        ></span>
+
+                        {/* Nội dung nút */}
+                        <span className=" relative z-10 flex items-center  hover:text-white">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="16"
+                            height="16"
+                            fill="currentColor"
+                            className="bi bi-bag mr-2 text-current transition-all duration-300"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M8 1a2.5 2.5 0 0 1 2.5 2.5V4h-5v-.5A2.5 2.5 0 0 1 8 1zm3.5 3v-.5a3.5 3.5 0 1 0-7 0V4H1v10a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V4h-3.5zM2 5h12v1a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V5z" />
+                          </svg>
+                          <span className="text-current transition-all duration-300 ">
+                            Chọn mua
+                          </span>
+                        </span>
                       </a>
                     </div>
                   </div>
@@ -379,6 +388,7 @@ const ProductDetail = () => {
               </SwiperSlide>
             ))}
           </Swiper>
+          
         </div>
       </div>
     </div>

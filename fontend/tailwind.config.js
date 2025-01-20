@@ -5,23 +5,33 @@ export default {
     "./src/**/*.{js,ts,jsx,tsx}",
   ],
   theme: {
-   
     extend: {
-      colors: {
-        'youka': '#27272a',
-        'stores': '#f97316',
-      },
       animation: {
-        fadeIn: 'fadeIn 1s ease-in forwards',  // Định nghĩa animation fadeIn
+        wave: 'wave 2s infinite',  // Gợn sóng cho Messenger
+        rotateSmooth: 'rotateSmooth 2s ease-in-out infinite',  // Xoay qua lại cho Zalo
       },
       keyframes: {
-        fadeIn: {
-          '0%': { opacity: 0 },
-          '100%': { opacity: 1 },
+        wave: {
+          '0%': { 
+            transform: 'scale(1)', 
+            boxShadow: '0 0 0 rgba(0, 0, 0, 0.1)' 
+          },
+          '50%': { 
+            transform: 'scale(1.2)',  
+            boxShadow: '0 0 30px rgba(255, 0, 255, 0.6)'  
+          },
+          '100%': { 
+            transform: 'scale(1)', 
+            boxShadow: '0 0 0 rgba(0, 0, 0, 0.1)'  
+          },
+        },
+        rotateSmooth: {
+          '0%': { transform: 'rotate(5deg)' },  // Xoay sang phải 30 độ
+          '50%': { transform: 'rotate(-5deg)' },  // Xoay sang trái 30 độ
+          '100%': { transform: 'rotate(5deg)' },  // Xoay sang phải 30 độ
         },
       },
     },
-   
   },
   plugins: [],
 }

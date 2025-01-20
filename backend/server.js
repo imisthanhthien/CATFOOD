@@ -14,6 +14,7 @@ const discountProductMapRouter = require('./routers/discountProductMapRouter.jsx
 const orderDiscountMapRouter = require('./routers/orderDiscountMapRouter.jsx');
 const statisticsRoutes = require("./routers/statisticsRoutes.jsx");
 
+
 const app = express();
 
 app.use(cors());
@@ -29,6 +30,7 @@ app.use('/discounts', discountRouter);
 app.use('/discount-products', discountProductMapRouter);
 app.use('/order-discount-maps', orderDiscountMapRouter);
 app.use("/statistics", statisticsRoutes);
+
 app.use('/images', express.static(path.join(__dirname, 'public', 'images')));
 
 const imagesDir = path.join(__dirname, 'public', 'images', 'ImageProduct');
