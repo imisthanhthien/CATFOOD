@@ -79,14 +79,32 @@ const addCustomer = (customer, callback) => {
         customer.phone,
         customer.address
     ];
+
     db.query(sql, values, (err, results) => {
         if (err) {
             console.error('Lỗi khi thêm khách hàng:', err);
             return callback(err, null);
         }
-        callback(null, results);
+
+        // Lấy customerId của khách hàng vừa thêm
+        const customerId = results.insertId;
+
+        // Thêm voucher cho khách hàng mới
+        const addVoucherSql = 'INSERT INTO voucher_customer (customer_id, voucher_id) SELECT ?, id FROM vouchers WHERE code IN (?, ?)';
+        const voucherCodes = ['NEW50K', 'NEW30PERCENT'];
+
+        db.query(addVoucherSql, [customerId, ...voucherCodes], (err, voucherResults) => {
+            if (err) {
+                console.error('Lỗi khi thêm voucher cho khách hàng:', err);
+                return callback(err, null);
+            }
+
+            console.log(`Đã thêm ${voucherResults.affectedRows} voucher cho khách hàng ${customerId}`);
+            callback(null, results);
+        });
     });
 };
+
 
 // Sửa thông tin khách hàng
 const updateCustomerById = (customerId, updatedFields, callback) => {

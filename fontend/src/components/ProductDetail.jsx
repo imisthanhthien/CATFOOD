@@ -21,6 +21,9 @@ const ProductDetail = () => {
   const [discountValue, setDiscountValue] = useState(null);
   const [discountValueram, setDiscountValueram] = useState([]);
   const { getProductsByDiscountId } = useDiscountProduct();
+  const [totalPrice, setTotalPrice] = useState(0); 
+
+
 
   useEffect(() => {
     const fetchDiscountValue = async () => {
@@ -54,6 +57,15 @@ const ProductDetail = () => {
 
     fetchDiscountValues();
   }, [randomProducts]);
+
+  useEffect(() => {
+    if (product) {
+      // Cập nhật tổng giá khi sản phẩm hoặc số lượng thay đổi
+      const discountedPrice = calculateDiscountedPrice(product.price);
+      setTotalPrice(discountedPrice * quantity);
+    }
+  }, [product, quantity, discountValue]);
+
 
   const toggleInfo = () => {
     setIsOpen(!isOpen);
@@ -137,7 +149,9 @@ const ProductDetail = () => {
             />
             {/* Nếu có giảm giá, hiển thị nhãn giảm giá */}
             {discountValue && (
-              <div className="absolute  bottom-[450px] right-20 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg transform scale-90 opacity-0 animate-fadeIn hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50 z-10">
+              <div className="absolute  bottom-[450px] right-20 bg-gradient-to-r
+               from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg 
+                hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50 z-10">
                 Giảm {discountValue} %
               </div>
             )}
@@ -154,24 +168,33 @@ const ProductDetail = () => {
             <p className="mt-2 text-lg font-medium text-gray-600">Số lượng tồn kho: <span className="text-xl text-black-600 font-semibold">{product.quantity}</span></p>
 
 
-            <p className="flex items-center">
-              {/* Nếu có giảm giá, hiển thị giá cũ bị gạch đi */}
-              {discountValue ? (
-                <>
-                  <span className="text-gray-400 line-through mr-2">
-                    {new Intl.NumberFormat('vi-VN').format(product.price)} VNĐ
-                  </span>
-                  <span className="text-rose-500 font-bold">
-                    {new Intl.NumberFormat('vi-VN').format(calculateDiscountedPrice(product.price))} VNĐ
-                  </span>
-                </>
-              ) : (
-                // Nếu không có giảm giá, chỉ hiển thị giá gốc
-                <span className="text-rose-500 font-bold">
-                  {new Intl.NumberFormat('vi-VN').format(product.price)} VNĐ
-                </span>
-              )}
-            </p>
+            <p className="flex flex-col items-start">
+  {/* Nếu có giảm giá, hiển thị giá cũ bị gạch đi */}
+  {discountValue ? (
+    <>
+      <span className="text-gray-400 line-through mr-2">
+        Giá gốc: {new Intl.NumberFormat('vi-VN').format(product.price)} VNĐ
+      </span>
+     
+      <span className="text-rose-500 font-bold">
+        Giá:{" "}
+        {new Intl.NumberFormat('vi-VN').format(
+          calculateDiscountedPrice(product.price) * quantity
+        )}{" "}
+        VNĐ
+      </span>
+    </>
+  ) : (
+    // Nếu không có giảm giá, chỉ hiển thị giá gốc và tổng tiền
+    <>
+      <span className="text-rose-500 font-bold">
+       Giá:{" "}
+        {new Intl.NumberFormat('vi-VN').format(product.price * quantity)} VNĐ
+      </span>
+    </>
+  )}
+</p>
+
 
             {/* Thêm nút tăng giảm số lượng */}
             <div className="flex items-center gap-6 mt-6">
@@ -203,6 +226,7 @@ const ProductDetail = () => {
                   +
                 </button>
               </div>
+             
               <div className=" w-full flex items-center gap-5 mt-6">
                 {/* Nút Thêm vào giỏ */}
                 <button
@@ -326,7 +350,7 @@ const ProductDetail = () => {
                     />
                     {/* Nếu có giảm giá, hiển thị nhãn giảm giá */}
                     {discountValueram.find((item) => item.productId === relatedProduct.id && item.discountValue) && (
-                      <div className="absolute top-1 right-8 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg z-50 transform scale-90 opacity-0 animate-fadeIn hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50">
+                      <div className="absolute top-1 right-8 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg z-50  hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50">
                         Giảm {discountValueram.find((item) => item.productId === relatedProduct.id)?.discountValue} %
                       </div>
                     )}

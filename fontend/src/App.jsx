@@ -36,8 +36,9 @@ const Layout = () => {
           <Route path="/admin/*" element={<ProtectedRoute element={<AdminApp />} adminOnly={true} />} />
         </Routes>
       </main>
-      <Chat/>
-      {!isAdminPage && <Footer />} {/* Chỉ hiển thị Footer nếu không phải admin */}
+     
+      {!isAdminPage && <Footer />} 
+      {!isAdminPage &&  <Chat/>}{/* Chỉ hiển thị Footer nếu không phải admin */}
     </div>
   );
 };

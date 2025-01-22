@@ -129,6 +129,16 @@ const AdminLayout = ({ children }) => {
               <FaTags className="mr-3 text-xl" />
               {isSidebarOpen && 'Quản lý giảm giá'}
             </NavLink>
+            <NavLink
+              to="/admin/VoucherManagements"
+              className={({ isActive }) =>
+                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                }`
+              }
+            >
+              <FaTags className="mr-3 text-xl" />
+              {isSidebarOpen && 'Quản lý voucher'}
+            </NavLink>
 
             <NavLink
               to="/admin/StatisticsManagement"

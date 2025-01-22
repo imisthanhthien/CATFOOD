@@ -7,8 +7,8 @@ export default {
   theme: {
     extend: {
       animation: {
-        wave: 'wave 2s infinite',  // Gợn sóng cho Messenger
-        rotateSmooth: 'rotateSmooth 2s ease-in-out infinite',  // Xoay qua lại cho Zalo
+        wave: 'wave 2s infinite',  
+        rotateSmooth: 'rotateSmooth 2s ease-in-out infinite', 
       },
       keyframes: {
         wave: {

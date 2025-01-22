@@ -14,11 +14,12 @@ const Deal = () => {
         <div className="bg-gradient-to-r from-purple-600 via-pink-600 to-purple-800 text-white py-16 px-6 mb-12 rounded-lg shadow-xl transform hover:scale-105 transition-all duration-700 ease-out">
           <h2 className="text-4xl font-bold mb-4 uppercase">Khuyến Mãi Giới Hạn Thời Gian</h2>
           <p className="text-lg mb-6">
-            Chỉ trong tuần này, tất cả các sản phẩm thức ăn cho mèo sẽ được giảm giá lên đến 30%. Hãy nhanh tay để sở hữu những sản phẩm chất lượng cao với mức giá không thể tốt hơn!
+           Khách hàng mới khi đăng ký tài khoản sẽ nhận 2 voucher giảm giá NEW50K và NEW30PERCENT. Nhanh tay ưu đãi có thời hạn hết ngày 21/06/2025
+
           </p>
-          <a href="/products">
+          <a href="/auth">
             <button className="bg-yellow-400 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-yellow-500 transition-all duration-300 ease-in-out transform hover:scale-110">
-              Mua Ngay
+              Đăng Ký ngay
             </button>
           </a>
         </div>

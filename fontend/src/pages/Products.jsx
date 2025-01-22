@@ -483,14 +483,21 @@ const ProductCard = ({ product, handleAddToCart }) => {
         <img
           src={`http://localhost:8081/${product.image || 'http://localhost:8081/images/ImageProduct/default.jpg'}`}
           alt={product.name}
-          className=" duration-700  w-full h-full object-cover aspect-[16/15] shadow-lg transition-all ease-in-out transform hover:scale-105 hover:shadow-2xl"
+          className=" duration-700   w-full h-full object-cover aspect-[16/15] shadow-lg transition-all ease-in-out transform hover:scale-105 hover:shadow-2xl"
           onError={(e) => {
             e.target.src = 'http://localhost:8081/images/ImageProduct/default.jpg';
           }}
         />
         {/* Nếu có giảm giá, hiển thị nhãn giảm giá */}
         {discountValue && (
-          <div className="absolute top-1 right-1 bg-gradient-to-r from-red-500 to-pink-500 text-white text-xs font-semibold px-4 py-2 rounded-full shadow-lg z-50 transform scale-90 opacity-0 animate-fadeIn hover:scale-110 hover:opacity-100 transition-all duration-500 ease-in-out hover:shadow-2xl hover:shadow-pink-500/50 hover:ring-2 hover:ring-pink-300 hover:ring-opacity-50">
+          <div className="absolute top-1 right-1 bg-gradient-to-r
+           from-red-500 to-pink-500 text-white text-xs
+            font-semibold px-4 py-2 rounded-full shadow-lg 
+            z-50  
+            hover:scale-110 hover:opacity-100 transition-all
+             duration-500 ease-in-out hover:shadow-2xl
+              hover:shadow-pink-500/50 hover:ring-2
+               hover:ring-pink-300 hover:ring-opacity-50">
             Giảm {discountValue} %
           </div>
         )}

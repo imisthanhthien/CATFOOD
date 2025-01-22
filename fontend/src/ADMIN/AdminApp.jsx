@@ -9,7 +9,7 @@ import ProductCateloriManagement from './pages/ProductCateloriManagement';
 import OderItemManagement from './pages/OderItemManagement';
 import DiscountManagement from './pages/DiscountManagement';
 import StatisticsManagement from './pages/StatisticsManagement';
-
+import VoucherManagements from './pages/VoucherManagements';
 const AdminApp = () => {
   return (
 <div className="w-full h-full">
@@ -23,6 +23,7 @@ const AdminApp = () => {
       <Route path="/OderItemManagement" element={<ProtectedRoute element={<OderItemManagement />} adminOnly={false} />} />
       <Route path="/ProductCateloriManagement" element={<ProtectedRoute element={<ProductCateloriManagement />} adminOnly={false} />} />
       <Route path="/DiscountManagement" element={<ProtectedRoute element={<DiscountManagement />} adminOnly={false} />} />
+      <Route path="/VoucherManagements" element={<ProtectedRoute element={<VoucherManagements />} adminOnly={false} />} />
       <Route path="/StatisticsManagement" element={<ProtectedRoute element={<StatisticsManagement />} adminOnly={false} />} />
     </Routes>
 </main>
