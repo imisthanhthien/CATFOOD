@@ -1,7 +1,7 @@
 import React from "react";
 import { useUserContext } from "./hooks/UserContext";
 
-const ProtectedRoute = ({ element, adminOnly = false }) => {
+const ProtectedRoute = ({ element }) => {
   const { user } = useUserContext();
 
   // Kiểm tra nếu chưa đăng
@@ -26,8 +26,8 @@ const ProtectedRoute = ({ element, adminOnly = false }) => {
     );
   }
 
-  //Kiểm tra nếu không phải Admin 
-  if (adminOnly && (user.role !== "admin" && user.role !== "seller")) {
+  //Kiểm tra nếu không phải Admin , seller
+  if ( user.role !== "admin" && user.role !== "seller") {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-800 text-white">
         <div className="bg-red-900 p-8 rounded-xl shadow-lg text-center max-w-lg w-full">

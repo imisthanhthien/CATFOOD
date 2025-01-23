@@ -52,6 +52,8 @@ const useVoucherCustomer = (customerId) => {
     }
   };
 
+
+
   // Thêm voucher cho tất cả khách hàng
   const addVoucherToAllCustomers = async (voucherCode) => {
     setLoading(true);
@@ -61,6 +63,20 @@ const useVoucherCustomer = (customerId) => {
       return response.data;
     } catch (err) {
       setError('Lỗi khi thêm voucher cho tất cả khách hàng!');
+    } finally {
+      setLoading(false);
+    }
+  };
+  
+  const removeVoucherFromAllCustomers = async (voucherCode) => {
+    setLoading(true);
+    try {
+      const response = await axios.post('http://localhost:8081/voucher-customers/remove-voucher-from-all', { voucherCode });
+      setError(null);
+      return response.data;
+    } catch (err) {
+      setError('Lỗi khi xóa voucher khỏi tất cả khách hàng!');
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -126,6 +142,7 @@ const useVoucherCustomer = (customerId) => {
     addVoucherToCustomer,
     removeVoucherFromCustomer,
     addVoucherToAllCustomers,
+    removeVoucherFromAllCustomers,
     updateVoucherStatus, // Đảm bảo hàm này được trả về
     checkVoucherStatus,
 

@@ -4,14 +4,7 @@ import { useUserContext } from "../../hooks/UserContext";
 import AdminLayout from "../AdminLayout";
 
 const AdminHome = () => {
-  const { user } = useUserContext();
-  const navigate = useNavigate();
 
-  useEffect(() => {
-    if (!user || user.role !== "admin") {
-      navigate("/");
-    }
-  }, [user, navigate]);
 
   return (
     <AdminLayout>
@@ -23,7 +16,7 @@ const AdminHome = () => {
       </h2>
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
         {/* Quản lý mèo */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
+        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 hover:shadow-teal-500/50">
           <img
             src="/public/home1.jpg"
             alt="Quản lý mèo"
@@ -36,7 +29,7 @@ const AdminHome = () => {
         </div>
         
         {/* Quản lý đơn hàng */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
+        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105  hover:shadow-teal-500/50">
           <img
             src="/public/home2.jpg"
             alt="Quản lý đơn hàng"
@@ -49,7 +42,7 @@ const AdminHome = () => {
         </div>
         
         {/* Quản lý người dùng */}
-        <div className="bg-white p-6 rounded-lg shadow-lg hover:shadow-xl transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
+        <div className="bg-white p-6 rounded-lg shadow-lg transition duration-300 transform hover:scale-105 hover:shadow-lg hover:shadow-teal-500/50">
           <img
             src="/public/home3.jpg"
             alt="Quản lý người dùng"

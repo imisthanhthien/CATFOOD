@@ -68,7 +68,7 @@ const Auth = () => {
         setMessage(`Đăng nhập thành công với tài khoản: ${userData.username}`);
 
         // Điều hướng dựa trên role người dùng
-        if (userData.role === "admin" || userData.role === "seller") {
+        if (userData.role == "admin" || userData.role == "seller") {
           navigate("/Admin/AdminHome");
         } else {
           navigate("/products");
@@ -117,8 +117,8 @@ const Auth = () => {
       setMessage(`Đăng nhập thành công với Google: ${userData.username}`);
 
       // Điều hướng dựa trên role người dùng
-      if (userData.role === "admin" || userData.role === "seller") {
-        navigate("/AdminHome");
+      if (userData.role == "admin" || userData.role == "seller") {
+        navigate("/Admin/AdminHome");
       } else {
         navigate("/products");
       }

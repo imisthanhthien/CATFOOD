@@ -18,11 +18,13 @@ const Layout = () => {
   const { user } = useUserContext();
 
   // Kiểm tra xem có user hay không, nếu không có thì trả về false
-  const isAdminPage = user && user.role === 'admin'; 
+  const isAdminPage = user && (user.role === 'admin' || user.role === 'seller'); 
+ 
 
   return (
     <div className="flex flex-col min-h-screen">
-      {!isAdminPage && <Header />} {/* Chỉ hiển thị Header nếu không phải admin */}
+      {!isAdminPage && <Header />} 
+      {/* Chỉ hiển thị Header nếu không phải admin */}
       <main className="flex-1  bg-white p-6">
         <Routes>
           <Route path="/" element={<Home />} />
@@ -33,7 +35,7 @@ const Layout = () => {
           <Route path="/auth" element={<Auth />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
-          <Route path="/admin/*" element={<ProtectedRoute element={<AdminApp />} adminOnly={true} />} />
+          <Route path="/admin/*" element={<ProtectedRoute element={<AdminApp />} />} />
         </Routes>
       </main>
      

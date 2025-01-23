@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import useVouchers from '../../../hooks/useVouchers';
+import useVoucherCustomer from '../../../hooks/useVoucherCustomer';
 
 const ListVouchers = () => {
     const {
@@ -10,6 +11,10 @@ const ListVouchers = () => {
         updateVoucher,
         deleteVoucher,
     } = useVouchers();
+    const {voucherCustomers,
+        addVoucherToAllCustomers,
+        removeVoucherFromAllCustomers
+    } = useVoucherCustomer("");
 
     const [formData, setFormData] = useState({
         code: '',
@@ -50,11 +55,17 @@ const ListVouchers = () => {
             };
     
             if (isEditing) {
+
                 await updateVoucher(editingVoucherId, formattedData);
                 alert('Voucher đã được cập nhật!');
                 window.location.reload();
             } else {
+       
+
                 await addVoucher(formattedData);
+
+                await addVoucherToAllCustomers(formattedData.code);
+
                 alert('Voucher mới đã được thêm thành công!');
                 window.location.reload();
             }
@@ -81,9 +92,12 @@ const ListVouchers = () => {
     };
     
 
-    const handleDeleteVoucher = async (id) => {
+    const handleDeleteVoucher = async (id, code) => {
         if (window.confirm('Bạn chắc chắn muốn xóa voucher này?')) {
             try {
+            
+                await removeVoucherFromAllCustomers(code);
+                
                 await deleteVoucher(id);
                 alert('Voucher đã được xóa thành công!');
                 window.location.reload();
@@ -165,7 +179,7 @@ const ListVouchers = () => {
                                         <span>Sửa</span>
                                     </button>
                                     <button
-                                        onClick={() => handleDeleteVoucher(voucher.id)}
+                                        onClick={() => handleDeleteVoucher(voucher.id, voucher.code)}
                                         className="px-4 py-2 bg-red-500 text-white rounded-md shadow-md hover:bg-red-600 transition duration-300 flex items-center space-x-2"
                                     >
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">

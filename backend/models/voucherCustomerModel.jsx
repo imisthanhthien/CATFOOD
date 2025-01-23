@@ -63,7 +63,7 @@ const addVoucherToAllCustomers = (voucherCode, callback) => {
         const voucherId = voucherResults[0].id;
 
         // 2. Lấy tất cả khách hàng từ bảng customers
-        const getCustomersSql = 'SELECT id FROM customers';
+        const getCustomersSql = 'SELECT id FROM customers ORDER BY id ASC';
         db.query(getCustomersSql, (err, customerResults) => {
             if (err) {
                 console.error('Lỗi khi lấy khách hàng:', err);
@@ -114,7 +114,7 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
         const voucherId = voucherResults[0].id;
 
         // 2. Lấy tất cả khách hàng từ bảng customers
-        const getCustomersSql = 'SELECT id FROM customers';
+        const getCustomersSql = 'SELECT id FROM customers ORDER BY id ASC';
         db.query(getCustomersSql, (err, customerResults) => {
             if (err) {
                 console.error('Lỗi khi lấy khách hàng:', err);
@@ -130,7 +130,7 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
             let counter = 0;
             customerResults.forEach((customer) => {
                 // Gọi hàm removeVoucherFromCustomer để xóa voucher cho mỗi khách hàng
-                removeVoucherFromCustomer(customer.id, voucherId, (err, results) => {
+                deleteVoucherFromCustomer(customer.id, voucherId, (err, results) => {
                     if (err) {
                         console.error(`Lỗi khi xóa voucher cho khách hàng ${customer.id}:`, err);
                     } else {

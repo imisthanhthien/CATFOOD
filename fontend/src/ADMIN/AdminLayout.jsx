@@ -1,20 +1,109 @@
 import { useState } from 'react';
 import { NavLink } from "react-router-dom";
-import { AiOutlineDashboard, AiOutlineUser, AiOutlineShoppingCart, AiOutlineBarChart, AiOutlineLogout } from "react-icons/ai";
-import { MdCategory } from "react-icons/md";
-import { FaBoxOpen, FaTags } from "react-icons/fa";
-import { MdLocalMall } from "react-icons/md";
+import { AiOutlineDashboard, AiOutlineTeam,AiOutlineUser,AiOutlineShoppingCart, AiOutlineBarChart } from "react-icons/ai";
+import { MdLocalMall, MdCategory } from "react-icons/md";
+import { FaUserFriends, FaTags, FaGift, FaBoxOpen } from "react-icons/fa";
 import { useUserContext } from "../hooks/UserContext";
 
-
 const AdminLayout = ({ children }) => {
-
   const { user, handleLogout } = useUserContext();
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const toggleSidebar = () => {
-    setIsSidebarOpen(prevState => !prevState);
+    setIsSidebarOpen((prevState) => !prevState);
   };
+
+  // Các liên kết dành cho admin
+  const adminLinks = [
+    {
+      to: "/admin/AdminHome",
+      icon: <AiOutlineDashboard className="mr-3 text-xl" />, // Icon phù hợp để thể hiện dashboard
+      label: "Trang chủ",
+    },
+    {
+      to: "/admin/UserManagement",
+      icon: <AiOutlineTeam className="mr-3 text-xl" />, // Icon phù hợp để quản lý người dùng
+      label: "Quản lý người dùng",
+    },
+    {
+      to: "/admin/ProductManagement",
+      icon: <MdLocalMall className="mr-3 text-xl" />, // Icon phù hợp để quản lý sản phẩm
+      label: "Quản lý sản phẩm",
+    },
+    {
+      to: "/admin/CustomerManagement",
+      icon: <FaUserFriends className="mr-3 text-xl" />, // Icon phù hợp để quản lý khách hàng
+      label: "Quản lý khách hàng",
+    },
+    {
+      to: "/admin/OderManagement",
+      icon: <AiOutlineShoppingCart className="mr-3 text-xl" />, // Icon phù hợp để quản lý đơn hàng
+      label: "Quản lý đơn hàng",
+    },
+    {
+      to: "/admin/DiscountManagement",
+      icon: <FaTags className="mr-3 text-xl" />, // Icon phù hợp để quản lý giảm giá
+      label: "Quản lý giảm giá",
+    },
+    {
+      to: "/admin/VoucherManagements",
+      icon: <FaGift className="mr-3 text-xl" />, // Icon phù hợp để quản lý voucher
+      label: "Quản lý voucher",
+    },
+    {
+      to: "/admin/ProductCateloriManagement",
+      icon: <MdCategory className="mr-3 text-xl" />, // Icon phù hợp để quản lý danh mục sản phẩm
+      label: "Quản lý danh mục sản phẩm",
+    },
+    {
+      to: "/admin/OderItemManagement",
+      icon: <FaBoxOpen className="mr-3 text-xl" />, // Icon phù hợp để quản lý chi tiết đơn hàng
+      label: "Quản lý chi tiết đơn hàng",
+    },
+    {
+      to: "/admin/StatisticsManagement",
+      icon: <AiOutlineBarChart className="mr-3 text-xl" />, // Icon phù hợp để thống kê báo cáo
+      label: "Thống kê báo cáo",
+    },
+  ];
+  
+
+  // Các liên kết dành cho seller
+  const sellerLinks = [
+    {
+      to: "/admin/AdminHome",
+      icon: <AiOutlineDashboard className="mr-3 text-xl" />,
+      label: "Trang chủ",
+    },
+    {
+      to: "/admin/ProductManagement",
+      icon: <MdLocalMall className="mr-3 text-xl" />,
+      label: "Quản lý sản phẩm",
+    },
+    {
+      to: "/admin/CustomerManagement",
+      icon: <AiOutlineUser className="mr-3 text-xl" />,
+      label: "Quản lý khách hàng",
+    },
+    {
+      to: "/admin/DiscountManagement",
+      icon: <FaTags className="mr-3 text-xl" />, // Icon phù hợp để quản lý giảm giá
+      label: "Quản lý giảm giá",
+    },
+    {
+      to: "/admin/VoucherManagements",
+      icon: <FaGift className="mr-3 text-xl" />, // Icon phù hợp để quản lý voucher
+      label: "Quản lý voucher",
+    },
+    {
+      to: "/admin/OderManagement",
+      icon: <AiOutlineShoppingCart className="mr-3 text-xl" />,
+      label: "Quản lý đơn hàng",
+    },
+  ];
+
+  const links = user.role === "admin" ? adminLinks : sellerLinks;
+
   return (
     <div className="flex h-screen bg-white">
       {/* Sidebar */}
@@ -42,114 +131,20 @@ const AdminLayout = ({ children }) => {
           </button>
 
           <nav className="flex-1 px-1 py-6 space-y-6 pt-8">
-            <NavLink
-              to="/admin/AdminHome"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <AiOutlineDashboard className="mr-3 text-xl" />
-              {isSidebarOpen && 'Trang chủ'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/UserManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <AiOutlineUser className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý người dùng'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/ProductManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <MdLocalMall className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý sản phẩm'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/CustomerManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <AiOutlineUser className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý khách hàng'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/OderManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <AiOutlineShoppingCart className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý đơn hàng'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/OderItemManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <FaBoxOpen className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý chi tiết đơn hàng'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/ProductCateloriManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <MdCategory className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý chi tiết sản phẩm'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/DiscountManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <FaTags className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý giảm giá'}
-            </NavLink>
-            <NavLink
-              to="/admin/VoucherManagements"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <FaTags className="mr-3 text-xl" />
-              {isSidebarOpen && 'Quản lý voucher'}
-            </NavLink>
-
-            <NavLink
-              to="/admin/StatisticsManagement"
-              className={({ isActive }) =>
-                `flex items-center px-4 py-2 rounded-lg transition-all ${isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
-                }`
-              }
-            >
-              <AiOutlineBarChart className="mr-3 text-xl" />
-              {isSidebarOpen && 'Báo cáo thống kê'}
-            </NavLink>
+            {links.map((link) => (
+              <NavLink
+                key={link.to}
+                to={link.to}
+                className={({ isActive }) =>
+                  `flex items-center px-4 py-2 rounded-lg transition-all ${
+                    isActive ? 'bg-gray-700 text-white' : 'text-gray-300 hover:bg-gray-700 hover:text-white'
+                  }`
+                }
+              >
+                {link.icon}
+                {isSidebarOpen && link.label}
+              </NavLink>
+            ))}
           </nav>
         </div>
       </div>
@@ -160,10 +155,11 @@ const AdminLayout = ({ children }) => {
         <header className="bg-white shadow-md p-4 flex justify-between items-center">
           <h1 className="text-2xl font-semibold text-gray-800">Quản lý</h1>
           <div className="flex items-center space-x-4">
-            <p className="text-sm text-gray-600">Xin chào, Admin</p>
+            <p className="text-sm text-gray-600">Xin chào, {user.role}</p>
             <button
               onClick={handleLogout}
-              className="px-3 py-1 rounded bg-gray-800 text-white hover:bg-gray-700">
+              className="px-3 py-1 rounded bg-gray-800 text-white hover:bg-gray-700"
+            >
               Đăng xuất
             </button>
           </div>

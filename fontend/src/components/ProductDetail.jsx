@@ -23,7 +23,7 @@ const ProductDetail = () => {
   const { getProductsByDiscountId } = useDiscountProduct();
   const [totalPrice, setTotalPrice] = useState(0); 
 
-
+  const [showSuccessMessage, setShowSuccessMessage] = useState(false);
 
   useEffect(() => {
     const fetchDiscountValue = async () => {
@@ -109,7 +109,15 @@ const ProductDetail = () => {
     const productToAdd = { ...product, quantity, price };
     // Thêm sản phẩm vào giỏ hàng
     dispatch(AddProduct(productToAdd));
-    alert(`Sản phẩm đã được thêm vào giỏ hàng!`);
+
+     // Hiển thị thông báo thành công
+     setShowSuccessMessage(true);
+
+     // Ẩn thông báo sau 2 giây
+     setTimeout(() => {
+         setShowSuccessMessage(false);
+     }, 2000);
+   
   };
 
   const calculateDiscountedPrice = (price) => {
@@ -226,6 +234,13 @@ const ProductDetail = () => {
                   +
                 </button>
               </div>
+              {showSuccessMessage && (
+                <div
+                    className="fixed text-sm top-14 right-2 bg-green-500 text-white p-3 rounded-lg shadow-md z-50"
+                >
+                    Sản phẩm {product.name} đã được thêm vào giỏ hàng của bạn.
+                </div>
+            )}
              
               <div className=" w-full flex items-center gap-5 mt-6">
                 {/* Nút Thêm vào giỏ */}
