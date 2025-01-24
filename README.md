@@ -1,105 +1,81 @@
-React + Vite
-Dự án này sử dụng React để xây dựng giao diện người dùng kết hợp với Vite để tăng tốc phát triển và build ứng dụng. Các công cụ và thư viện được tích hợp bao gồm:
+React + Vite Dự án này sử dụng React để xây dựng giao diện người dùng kết hợp với Vite để tăng tốc phát triển và build ứng dụng. Các công cụ và thư viện được tích hợp bao gồm:
 
-1. Cơ bản React
-   
-   React: Framework chính để phát triển giao diện người dùng.
+Cơ bản React
 
-   React DOM: Kết nối React với trình duyệt để hiển thị giao diện.
+React: Framework chính để phát triển giao diện người dùng.
 
-   React Router DOM: Quản lý định tuyến trong ứng dụng SPA.
+React DOM: Kết nối React với trình duyệt để hiển thị giao diện.
 
-   React Redux: Kết nối Redux với React để quản lý state toàn cục.
+React Router DOM: Quản lý định tuyến trong ứng dụng SPA.
 
-   Redux Toolkit: Bộ công cụ giúp tối ưu hóa việc sử dụng Redux.
+React Redux: Kết nối Redux với React để quản lý state toàn cục.
 
+Redux Toolkit: Bộ công cụ giúp tối ưu hóa việc sử dụng Redux.
 
-2. Giao diện người dùng
-   
-      Material-UI:
-      @mui/material: Bộ công cụ giao diện người dùng dựa trên thiết kế Material.
-   
-      @mui/icons-material: Các biểu tượng (icons) theo chuẩn Material Design.
-   
-      @emotion/react và @emotion/styled: Công cụ CSS-in-JS để tùy chỉnh giao diện.
+Giao diện người dùng
 
-      TailwindCSS: Framework CSS tiện lợi với phong cách utility-first, hỗ trợ tạo giao diện nhanh chóng.
+Material-UI: @mui/material: Bộ công cụ giao diện người dùng dựa trên thiết kế Material.
 
-      Swiper: Thư viện tạo slider/carousel với hiệu ứng đẹp mắt.
+@mui/icons-material: Các biểu tượng (icons) theo chuẩn Material Design.
 
+@emotion/react và @emotion/styled: Công cụ CSS-in-JS để tùy chỉnh giao diện.
 
-3. Hiển thị dữ liệu và biểu đồ
-   
-      Chart.js: Thư viện vẽ biểu đồ đơn giản và mạnh mẽ.
+TailwindCSS: Framework CSS tiện lợi với phong cách utility-first, hỗ trợ tạo giao diện nhanh chóng.
 
-      React Chart.js 2: Công cụ tích hợp Chart.js vào React để dễ sử dụng hơn.
-   
+Swiper: Thư viện tạo slider/carousel với hiệu ứng đẹp mắt.
 
-7. Quản lý API và dữ liệu
-   
-   Axios: Thư viện HTTP client dùng để gọi API.
+Hiển thị dữ liệu và biểu đồ
 
-   Numeral: Hỗ trợ định dạng số liệu (như tiền tệ, số thập phân, phần trăm, v.v.).
+Chart.js: Thư viện vẽ biểu đồ đơn giản và mạnh mẽ.
 
-   Firebase: Nền tảng backend-as-a-service hỗ trợ xác thực, lưu trữ dữ liệu và tệp.
+React Chart.js 2: Công cụ tích hợp Chart.js vào React để dễ sử dụng hơn.
 
+Quản lý API và dữ liệu
 
-4. Xử lý tệp và Excel
-    
-   File Saver: Công cụ giúp tải tệp từ trình duyệt.
+Axios: Thư viện HTTP client dùng để gọi API.
 
-   XLSX: Thư viện hỗ trợ đọc và ghi tệp Excel (.xlsx).
+Numeral: Hỗ trợ định dạng số liệu (như tiền tệ, số thập phân, phần trăm, v.v.).
 
+Firebase: Nền tảng backend-as-a-service hỗ trợ xác thực, lưu trữ dữ liệu và tệp.
 
-5. Công cụ phát triển
-   
-    
-   Vite: Công cụ build hiện đại và nhanh chóng, thay thế Webpack.
-   
+Xử lý tệp và Excel
 
-   @vitejs/plugin-react: Plugin cho Vite, sử dụng Babel để hỗ trợ Fast Refresh.
-   
+File Saver: Công cụ giúp tải tệp từ trình duyệt.
 
-   ESLint: Công cụ kiểm tra mã nguồn và đảm bảo tuân thủ quy tắc code.
-   
+XLSX: Thư viện hỗ trợ đọc và ghi tệp Excel (.xlsx).
 
-   @eslint/js: Cấu hình chính cho ESLint.
-   
+Công cụ phát triển
 
-   eslint-plugin-react: Kiểm tra các quy tắc code React.
-   
+Vite: Công cụ build hiện đại và nhanh chóng, thay thế Webpack.
 
-   eslint-plugin-react-hooks: Đảm bảo tuân thủ quy tắc của React Hooks.
-   
+@vitejs/plugin-react: Plugin cho Vite, sử dụng Babel để hỗ trợ Fast Refresh.
 
-   eslint-plugin-react-refresh: Hỗ trợ kiểm tra Fast Refresh
+ESLint: Công cụ kiểm tra mã nguồn và đảm bảo tuân thủ quy tắc code.
 
+@eslint/js: Cấu hình chính cho ESLint.
 
-6. Xử lý CSS
-    
-   PostCSS: Công cụ xử lý CSS, giúp chuyển đổi các tính năng CSS hiện đại
+eslint-plugin-react: Kiểm tra các quy tắc code React.
 
-.
-   Autoprefixer: Thêm prefix cho CSS để tương thích với các trình duyệt khác nhau.
+eslint-plugin-react-hooks: Đảm bảo tuân thủ quy tắc của React Hooks.
 
+eslint-plugin-react-refresh: Hỗ trợ kiểm tra Fast Refresh
 
+Xử lý CSS
+
+PostCSS: Công cụ xử lý CSS, giúp chuyển đổi các tính năng CSS hiện đại
+
+. Autoprefixer: Thêm prefix cho CSS để tương thích với các trình duyệt khác nhau.
 
 ======TÀI KHOẢN QUẢN TRỊ VIÊN=======
 
-   Tài khoản admin: admin@gmail.com
-   Pass: admin@123
+Tài khoản admin: admin@gmail.com Pass: admin@123
 
-   Tài khoản admin: adminclone@gmail.com
-   Pass: admincolne@123
+Tài khoản admin: adminclone@gmail.com Pass: admincolne@123
 
 =======TÀI KHOẢN BÁN HÀNG==========
 
-   Tài khoản seller: seller1@gmail.com
-   pass: seller1@123
+Tài khoản seller: seller1@gmail.com pass: seller1@123
 
-   Tài khoản seller: seller2@gmail.com
-   pass: seller2@123
-   
-   Tài khoản seller: seller3@gmail.com
-   pass: seller3@123
+Tài khoản seller: seller2@gmail.com pass: seller2@123
 
+Tài khoản seller: seller3@gmail.com pass: seller3@123
