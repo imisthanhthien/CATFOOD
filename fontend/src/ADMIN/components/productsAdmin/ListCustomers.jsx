@@ -162,17 +162,17 @@ const ListCustomers = () => {
             ) : (
                 <table className="min-w-full mt-4 table-auto border-collapse border border-gray-300 rounded-lg shadow-lg">
                     <thead>
-                        <tr className="bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg uppercase">
-                            <th className="px-6 py-2 border-b">Tên</th>
-                            <th className="px-6 py-2 border-b">Email</th>
-                            <th className="px-6 py-2 border-b">Số điện thoại</th>
-                            <th className="px-6 py-2 border-b">Địa chỉ</th>
-                            <th className="px-6 py-2 border-b">Thao tác</th>
+                        <tr className="bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg uppercase  ">
+                            <th className="px-4 py-2 border-b text-center text-sm font-medium">Tên</th>
+                            <th className="px-4 py-2 border-b text-center text-sm font-medium">Email</th>
+                            <th className="px-4 py-2 border-b text-center text-sm font-medium">Số điện thoại</th>
+                            <th className="px-4 py-2 border-b text-center text-sm font-medium">Địa chỉ</th>
+                            <th className="px-4 py-2 border-b text-center text-sm font-medium">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody>
                         {currentCustomers.map((customer) => (
-                            <tr key={customer.id} className="hover:bg-gray-50">
+                            <tr key={customer.id} className="hover:bg-gray-50 text-center">
                                 <td className="px-6 py-3 border-b text-gray-700">{customer.name}</td>
                                 <td className="px-6 py-3 border-b text-gray-700">{customer.email}</td>
                                 <td className="px-6 py-3 border-b text-gray-700">{customer.phone}</td>
@@ -207,17 +207,23 @@ const ListCustomers = () => {
 
             {/* Pagination */}
             {totalPages > 1 && (
-                <div className="flex justify-center space-x-4 mt-4">
-                    {[...Array(totalPages).keys()].map(pageNumber => (
-                        <button
-                            key={pageNumber + 1}
-                            onClick={() => paginate(pageNumber + 1)}
-                            className={`px-4 py-2 bg-blue-500 text-white rounded-md ${currentPage === pageNumber + 1 ? 'bg-blue-600' : 'hover:bg-blue-600'} transition duration-300`}
-                        >
-                            {pageNumber + 1}
-                        </button>
-                    ))}
-                </div>
+               <div className="flex justify-center space-x-4 mt-4">
+               {[...Array(totalPages).keys()].map(pageNumber => (
+                 <button
+                   key={pageNumber + 1}
+                   onClick={() => paginate(pageNumber + 1)}
+                   className={`px-4 py-2 rounded-md border border-gray-300 transition duration-300 
+                     ${currentPage === pageNumber + 1 
+                       ? 'bg-blue-600 text-white' // Màu xanh khi chọn
+                       : 'bg-white text-blue-500 hover:bg-blue-600 hover:text-white' // Màu trắng khi chưa chọn
+                     }`}
+                 >
+                   {pageNumber + 1}
+                 </button>
+               ))}
+             </div>
+             
+             
             )}
 
             {/* Modal */}

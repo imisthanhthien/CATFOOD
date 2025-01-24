@@ -86,6 +86,7 @@ const ListProducts = () => {
     }
   };
 
+  
   const handleSubmit = async (e) => {
     e.preventDefault();
     const newProduct = {
@@ -202,7 +203,7 @@ const ListProducts = () => {
       {/* Nút "Thêm sản phẩm" */}
       <button
         onClick={openModal}
-        className="mb-6 px-5 py-2 bg-cyan-400 text-white font-semibold rounded-lg shadow-md  transition transform hover:scale-105 ease-in-out duration-200 flex items-center space-x-3"
+        className="mb-6 px-5 py-2 bg-blue-700 text-white font-semibold rounded-lg shadow-md  transition transform hover:scale-105 ease-in-out duration-200 flex items-center space-x-3"
       >
         <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
@@ -217,7 +218,7 @@ const ListProducts = () => {
       ) : (
         <table className="min-w-full mt-8 table-auto border-collapse border border-gray-300 rounded-lg overflow-hidden shadow-lg bg-white">
           <thead>
-            <tr className="bg-gradient-to-r from-blue-600 to-blue-700 text-white shadow-lg uppercase">
+            <tr className="bg-gradient-to-r from-blue-400 to-blue-500 text-white shadow-lg uppercase">
               <th className="px-4 py-2 text-left text-sm font-medium">Tên sản phẩm</th>
               <th className="px-4 py-2 text-left text-sm font-medium">Mô tả</th>
               <th className="px-4 py-2 text-left text-sm font-medium">Giá</th>
@@ -269,19 +270,20 @@ const ListProducts = () => {
 
       {/* Phân trang */}
       <div className="mt-8 flex justify-center">
-        <ul className="flex list-none space-x-4">
-          {pageNumbers.map((number) => (
-            <li key={number}>
-              <button
-                onClick={() => paginate(number)}
-                className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-300 transition duration-300 ease-in-out transform hover:scale-110"
-              >
-                {number}
-              </button>
-            </li>
-          ))}
-        </ul>
-      </div>
+  <ul className="flex list-none space-x-4">
+    {pageNumbers.map((number) => (
+      <li key={number}>
+        <button
+          onClick={() => paginate(number)}
+          className={`px-4 py-2 text-sm rounded-lg shadow-lg transition-all duration-300 transform hover:scale-105 hover:shadow-xl disabled:bg-gray-300 disabled:cursor-not-allowed disabled:opacity-50 
+            ${currentPage === number ? 'bg-blue-500 text-white' : 'bg-white text-gray-700'}`}
+        >
+          {number}
+        </button>
+      </li>
+    ))}
+  </ul>
+</div>
 
       {/* Modal (Form thêm/sửa sản phẩm) */}
       {isModalOpen && (

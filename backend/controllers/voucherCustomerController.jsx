@@ -2,9 +2,8 @@ const voucherCustomerModel = require('../models/voucherCustomerModel.jsx');
 
 // Lấy tất cả voucher của khách hàng
 const getAllVouchersByCustomer = (req, res) => {
-    const { customerId } = req.params; // Lấy customerId từ tham số URL
+    const { customerId } = req.params; 
 
-    // Kiểm tra nếu customerId không tồn tại
     if (!customerId) {
         return res.status(400).json({ message: 'customerId là bắt buộc' });
     }
@@ -25,7 +24,7 @@ const getAllVouchersByCustomer = (req, res) => {
 
 // Thêm voucher cho khách hàng
 const addVoucherToCustomer = (req, res) => {
-    const { customerId, voucherId } = req.body; // Lấy customerId và voucherId từ body
+    const { customerId, voucherId } = req.body; 
     if (!customerId || !voucherId) {
         return res.status(400).json({ message: 'customerId và voucherId là bắt buộc' });
     }
@@ -39,7 +38,7 @@ const addVoucherToCustomer = (req, res) => {
 
 // Xóa voucher của khách hàng
 const deleteVoucherFromCustomer = (req, res) => {
-    const { customerId, voucherId } = req.params; // Lấy customerId và voucherId từ params
+    const { customerId, voucherId } = req.params; 
     if (!customerId || !voucherId) {
         return res.status(400).json({ message: 'customerId và voucherId là bắt buộc' });
     }
@@ -53,7 +52,7 @@ const deleteVoucherFromCustomer = (req, res) => {
 
 // Thêm voucher cho tất cả khách hàng
 const addVoucherToAllCustomers = (req, res) => {
-    const { voucherCode } = req.body; // Lấy voucherCode từ body request
+    const { voucherCode } = req.body;
     if (!voucherCode) {
         return res.status(400).json({ message: 'voucherCode là bắt buộc' });
     }
@@ -67,7 +66,7 @@ const addVoucherToAllCustomers = (req, res) => {
 
 // Xóa voucher khỏi tất cả khách hàng
 const removeVoucherFromAllCustomers = (req, res) => {
-    const { voucherCode } = req.body; // Lấy voucherCode từ body request
+    const { voucherCode } = req.body; 
     if (!voucherCode) {
         return res.status(400).json({ message: 'voucherCode là bắt buộc' });
     }
@@ -79,9 +78,10 @@ const removeVoucherFromAllCustomers = (req, res) => {
     });
 };
 
+ // Cập nhật trạng thái 
 const updateVoucherStatus = (req, res) => {
-    const { customerId, voucherCode } = req.params;  // Nhận customerId và voucherCode từ params
-    const newStatus = 'used';  // Cập nhật trạng thái thành 'used'
+    const { customerId, voucherCode } = req.params;  
+    const newStatus = 'used'; 
 
     voucherCustomerModel.updateVoucherStatus(customerId, voucherCode, newStatus, (err, result) => {
         if (err) {
@@ -96,9 +96,9 @@ const updateVoucherStatus = (req, res) => {
     });
 };
 
-
+//Kiểm tra trạng thái
 const checkVoucherStatusController = (req, res) => {
-    const { customerId, voucherCode } = req.params; // Nhận customerId và voucherCode từ params
+    const { customerId, voucherCode } = req.params; 
 
     voucherCustomerModel.checkVoucherStatus(customerId, voucherCode, (err, result) => {
         if (err) {
@@ -113,8 +113,6 @@ const checkVoucherStatusController = (req, res) => {
         }
     });
 };
-
-
 
 module.exports = {
     getAllVouchersByCustomer,

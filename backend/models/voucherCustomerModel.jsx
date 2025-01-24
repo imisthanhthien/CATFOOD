@@ -1,7 +1,6 @@
 const db = require('../db');
 
 // Lấy tất cả các voucher của khách hàng
-
 const getAllVouchersByCustomer = (customerId, callback) => {
     const sql = `
          SELECT 
@@ -46,8 +45,8 @@ const addVoucherToCustomer = (customerId, voucherId, callback) => {
     });
 };
 
+//Thêm voucher cho khách hàng
 const addVoucherToAllCustomers = (voucherCode, callback) => {
-    // 1. Lấy ID của voucher từ bảng vouchers
     const getVoucherSql = 'SELECT id FROM vouchers WHERE code = ?';
     db.query(getVoucherSql, [voucherCode], (err, voucherResults) => {
         if (err) {
@@ -61,8 +60,6 @@ const addVoucherToAllCustomers = (voucherCode, callback) => {
         }
 
         const voucherId = voucherResults[0].id;
-
-        // 2. Lấy tất cả khách hàng từ bảng customers
         const getCustomersSql = 'SELECT id FROM customers ORDER BY id ASC';
         db.query(getCustomersSql, (err, customerResults) => {
             if (err) {
@@ -75,18 +72,14 @@ const addVoucherToAllCustomers = (voucherCode, callback) => {
                 return callback(new Error('Không có khách hàng nào'), null);
             }
 
-            // 3. Lặp qua tất cả khách hàng và thêm voucher cho mỗi người
             let counter = 0;
             customerResults.forEach((customer) => {
-                // Gọi hàm addVoucherToCustomer để thêm voucher cho mỗi khách hàng
                 addVoucherToCustomer(customer.id, voucherId, (err, results) => {
                     if (err) {
                         console.error(`Lỗi khi thêm voucher cho khách hàng ${customer.id}:`, err);
                     } else {
                         console.log(`Đã thêm voucher cho khách hàng ${customer.id}`);
                     }
-
-                    // Kiểm tra khi tất cả các khách hàng đã được xử lý
                     counter++;
                     if (counter === customerResults.length) {
                         callback(null, { message: 'Voucher đã được thêm cho tất cả khách hàng' });
@@ -97,8 +90,8 @@ const addVoucherToAllCustomers = (voucherCode, callback) => {
     });
 };
 
+//Xóa voucher cho tất cả khách hàng
 const removeVoucherFromAllCustomers = (voucherCode, callback) => {
-    // 1. Lấy ID của voucher từ bảng vouchers
     const getVoucherSql = 'SELECT id FROM vouchers WHERE code = ?';
     db.query(getVoucherSql, [voucherCode], (err, voucherResults) => {
         if (err) {
@@ -112,9 +105,8 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
         }
 
         const voucherId = voucherResults[0].id;
-
-        // 2. Lấy tất cả khách hàng từ bảng customers
         const getCustomersSql = 'SELECT id FROM customers ORDER BY id ASC';
+
         db.query(getCustomersSql, (err, customerResults) => {
             if (err) {
                 console.error('Lỗi khi lấy khách hàng:', err);
@@ -126,10 +118,9 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
                 return callback(new Error('Không có khách hàng nào'), null);
             }
 
-            // 3. Lặp qua tất cả khách hàng và xóa voucher cho mỗi người
             let counter = 0;
             customerResults.forEach((customer) => {
-                // Gọi hàm removeVoucherFromCustomer để xóa voucher cho mỗi khách hàng
+    
                 deleteVoucherFromCustomer(customer.id, voucherId, (err, results) => {
                     if (err) {
                         console.error(`Lỗi khi xóa voucher cho khách hàng ${customer.id}:`, err);
@@ -137,7 +128,6 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
                         console.log(`Đã xóa voucher cho khách hàng ${customer.id}`);
                     }
 
-                    // Kiểm tra khi tất cả các khách hàng đã được xử lý
                     counter++;
                     if (counter === customerResults.length) {
                         callback(null, { message: 'Voucher đã được xóa khỏi tất cả khách hàng' });
@@ -148,9 +138,7 @@ const removeVoucherFromAllCustomers = (voucherCode, callback) => {
     });
 };
 
-
-
-// Xóa voucher của khách hàng
+// Xóa voucher cho 1 khách hàng
 const deleteVoucherFromCustomer = (customerId, voucherId, callback) => {
     const sql = 'DELETE FROM voucher_customer WHERE customer_id = ? AND voucher_id = ?';
     db.query(sql, [customerId, voucherId], (err, results) => {
@@ -162,13 +150,13 @@ const deleteVoucherFromCustomer = (customerId, voucherId, callback) => {
     });
 };
 
+//Cập nhật voucher cho 1 khách hàng
 const updateVoucherStatus = (customerId, voucherCode) => {
     return new Promise((resolve, reject) => {
-        // Kiểm tra xem customerId và voucherCode có hợp lệ không
+        
         if (!customerId || !voucherCode) {
             return reject(new Error('Thông tin customerId hoặc voucherCode không hợp lệ'));
         }
-
         // SQL query để cập nhật status của voucher trong bảng voucher_customer, set status luôn là 'used'
         const sql = `
             UPDATE voucher_customer 
@@ -177,27 +165,23 @@ const updateVoucherStatus = (customerId, voucherCode) => {
             AND voucher_id = (SELECT id FROM vouchers WHERE code = ?)
         `;
         
-        // Thực hiện câu lệnh SQL
         db.query(sql, [customerId, voucherCode], (err, results) => {
             if (err) {
                 console.error('Lỗi khi cập nhật status voucher:', err);
                 return reject(new Error('Có lỗi xảy ra khi cập nhật trạng thái voucher.'));
             }
             
-            // Kiểm tra nếu không có bản ghi nào được cập nhật
             if (results.affectedRows === 0) {
                 console.log('Không tìm thấy voucher hoặc khách hàng không hợp lệ.');
                 return reject(new Error('Không tìm thấy voucher hoặc khách hàng không hợp lệ.'));
             }
-
             console.log('Voucher status updated successfully.');
-            resolve(results); // Trả về kết quả thành công
+            resolve(results); 
         });
     });
 };
-
   
-// Kiểm tra trạng thái voucher của khách hàng
+// Kiểm tra trạng thái voucher của 1 khách hàng 
 const checkVoucherStatus = (customerId, voucherCode, callback) => {
     const sql = `
         SELECT 
@@ -219,22 +203,17 @@ const checkVoucherStatus = (customerId, voucherCode, callback) => {
             return callback(err, null);
         }
 
-        // Kiểm tra nếu không có kết quả trả về
         if (results.length === 0) {
             console.log('Không tìm thấy voucher hoặc khách hàng không hợp lệ.');
             return callback(new Error('Không tìm thấy voucher hoặc khách hàng không hợp lệ'), null);
         }
 
-        // Kiểm tra trạng thái voucher
         const status = results[0].status;
 
-        // Nếu trạng thái là 'used', trả về 1
         if (status === 'used') {
-            return callback(null, 1);  // Voucher đã được sử dụng
+            return callback(null, 1); 
         }
-
-        // Nếu trạng thái không phải 'used', trả về 0
-        return callback(null, 0);  // Voucher chưa được sử dụng
+        return callback(null, 0); 
     });
 };
 

@@ -5,28 +5,26 @@ const About = () => {
     <div className=" min-h-screen flex flex-col items-center py-12 px-6">
       <div className="max-w-7xl mx-auto text-center">
 
-      <h1 className=" uppercase text-6xl font-extrabold text-gray-900 mb-6 transform hover:scale-105 transition-all duration-300 ease-out">
-  Về Chúng Tôi
-</h1>
-<p className="text-lg text-gray-700 mb-12 max-w-3xl mx-auto opacity-90 leading-relaxed hover:text-gray-800 transition-all duration-300 ease-out">
-  Chúng tôi là một cửa hàng cung cấp thức ăn cho mèo các loại. Với cam kết mang đến những sản phẩm chất lượng cao, chúng tôi luôn muốn chăm sóc mèo của bạn như chính con của mình!
-</p>
+        <h1 className=" uppercase text-6xl font-extrabold text-gray-900 mb-6 transform hover:scale-105 transition-all duration-300 ease-out">
+          Về Chúng Tôi
+        </h1>
+        <p className="text-lg text-gray-700 mb-12 max-w-3xl mx-auto opacity-90 leading-relaxed hover:text-gray-800 transition-all duration-300 ease-out">
+          Chúng tôi là một cửa hàng cung cấp thức ăn cho mèo các loại. Với cam kết mang đến những sản phẩm chất lượng cao, chúng tôi luôn muốn chăm sóc mèo của bạn như chính con của mình!
+        </p>
 
-<div className="bg-white shadow-lg rounded-xl p-8 mb-16 transform hover:scale-102 hover:shadow-xl transition-all duration-300 ease-out">
-  <h2 className="text-3xl font-semibold text-gray-900 mb-6 uppercase">Sứ Mệnh Của Chúng Tôi</h2>
-  <p className="text-lg text-gray-600 leading-relaxed hover:text-gray-700 transition-all duration-300 ease-out">
-    Chúng tôi cam kết cung cấp cho bạn những sản phẩm tốt nhất cho mèo yêu của bạn. Với sự tỉ mỉ trong từng sản phẩm, chúng tôi luôn cố gắng mang lại sức khỏe, niềm vui và sự thoải mái cho những chú mèo của bạn.
-  </p>
-</div>
+        <div className="bg-white shadow-lg rounded-xl p-8 mb-16 transform hover:scale-102 hover:shadow-xl transition-all duration-300 ease-out">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6 uppercase">Sứ Mệnh Của Chúng Tôi</h2>
+          <p className="text-lg text-gray-600 leading-relaxed hover:text-gray-700 transition-all duration-300 ease-out">
+            Chúng tôi cam kết cung cấp cho bạn những sản phẩm tốt nhất cho mèo yêu của bạn. Với sự tỉ mỉ trong từng sản phẩm, chúng tôi luôn cố gắng mang lại sức khỏe, niềm vui và sự thoải mái cho những chú mèo của bạn.
+          </p>
+        </div>
 
-<div className="bg-gradient-to-r from-yellow-100 via-yellow-200 to-yellow-300 shadow-lg rounded-xl p-8 mb-16 transform hover:scale-102 hover:shadow-xl transition-all duration-300 ease-out">
-  <h2 className="text-3xl font-semibold text-gray-900 mb-6 uppercase">Tầm Nhìn Của Chúng Tôi</h2>
-  <p className="text-lg text-gray-600 leading-relaxed hover:text-gray-700 transition-all duration-300 ease-out">
-    Chúng tôi muốn trở thành lựa chọn hàng đầu của mọi chủ mèo, nơi bạn có thể tìm thấy mọi thứ cần thiết để nuôi dưỡng, vui chơi, và chăm sóc cho mèo của mình. Chúng tôi mong muốn mang lại niềm vui và sự hài lòng cho cả bạn và mèo yêu của bạn.
-  </p>
-</div>
-
-
+        <div className="bg-gradient-to-r from-yellow-100 via-yellow-200 to-yellow-300 shadow-lg rounded-xl p-8 mb-16 transform hover:scale-102 hover:shadow-xl transition-all duration-300 ease-out">
+          <h2 className="text-3xl font-semibold text-gray-900 mb-6 uppercase">Tầm Nhìn Của Chúng Tôi</h2>
+          <p className="text-lg text-gray-600 leading-relaxed hover:text-gray-700 transition-all duration-300 ease-out">
+            Chúng tôi muốn trở thành lựa chọn hàng đầu của mọi chủ mèo, nơi bạn có thể tìm thấy mọi thứ cần thiết để nuôi dưỡng, vui chơi, và chăm sóc cho mèo của mình. Chúng tôi mong muốn mang lại niềm vui và sự hài lòng cho cả bạn và mèo yêu của bạn.
+          </p>
+        </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-16 max-w-4xl mx-auto mb-16">
           <div className="bg-white shadow-lg rounded-lg p-8 text-center transform hover:scale-105 transition-all duration-500 ease-out">
@@ -78,11 +76,11 @@ const About = () => {
             Nếu bạn yêu mèo và muốn mang lại sự thoải mái cho chúng, hãy tham gia cộng đồng yêu mèo của chúng tôi ngay hôm nay!
           </p>
           <a href='https://www.facebook.com/groups/daomeohnvn/'>
-          <button className="mt-6 bg-yellow-400 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-yellow-500 transition-all duration-300 ease-in-out transform hover:scale-110">
-            Khám Phá Ngay
-          </button>
+            <button className="mt-6 bg-yellow-400 px-8 py-3 rounded-full font-bold shadow-lg hover:bg-yellow-500 transition-all duration-300 ease-in-out transform hover:scale-110">
+              Khám Phá Ngay
+            </button>
           </a>
-          
+
         </div>
       </div>
     </div>

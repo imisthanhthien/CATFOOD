@@ -87,7 +87,7 @@ const checkProductDiscount = (productId, callback) => {
             console.error('Lỗi khi kiểm tra sản phẩm có giảm giá hay không:', err);
             return callback(err, null);
         }
-        callback(null, results[0].is_discounted); // Trả về 1 hoặc 0
+        callback(null, results[0].is_discounted); 
     });
 };
 
@@ -116,9 +116,9 @@ const getDiscountIdByProductId = (productId, callback) => {
             return callback(err, null);
         }
         if (results.length > 0) {
-            callback(null, results[0].discount_id); // Trả về discount_id nếu có
+            callback(null, results[0].discount_id); 
         } else {
-            callback(null, null); // Không có mối quan hệ giảm giá cho sản phẩm
+            callback(null, null); 
         }
     });
 };
@@ -130,7 +130,6 @@ const checkDiscountExists = (discountId, callback) => {
         if (err) {
             return callback(err, null);
         }
-        // Kiểm tra nếu có ít nhất một dòng, tức là discount_id tồn tại
         callback(null, results[0].count > 0);
     });
 };

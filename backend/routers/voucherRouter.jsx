@@ -9,4 +9,5 @@ router.put('/:id', voucherController.updateVoucher);
 router.delete('/:id', voucherController.deleteVoucher);
 router.post('/apply', voucherController.applyVoucher);
 router.post('/check-exists', voucherController.checkVoucherExists);
+
 module.exports = router;

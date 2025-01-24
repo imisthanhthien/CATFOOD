@@ -1,6 +1,5 @@
 const express = require("express");
 const statisticsController = require("../controllers/statisticsController.jsx");
-
 const router = express.Router();
 
 router.get("/revenue-by-product", statisticsController.getRevenueByProduct);

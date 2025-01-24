@@ -14,19 +14,20 @@ import { UserProvider,useUserContext } from './hooks/UserContext';
 import AdminApp from './ADMIN/AdminApp';
 import ProtectedRoute from './ProtectedRoute';
 import Chat from './components/chat';
+import NotFound404 from './pages/NotFound404';
+
 const Layout = () => {
   const { user } = useUserContext();
 
   // Kiểm tra xem có user hay không, nếu không có thì trả về false
   const isAdminPage = user && (user.role === 'admin' || user.role === 'seller'); 
  
-
   return (
     <div className="flex flex-col min-h-screen">
-      {!isAdminPage && <Header />} 
-      {/* Chỉ hiển thị Header nếu không phải admin */}
+      {!isAdminPage && <Header />} {/* Chỉ hiển thị Header nếu không phải admin, seller */}
       <main className="flex-1  bg-white p-6">
         <Routes>
+          {/* Các trang của web */}
           <Route path="/" element={<Home />} />
           <Route path="/products" element={<Products />} />
           <Route path="/deals" element={<Deal />} />
@@ -35,12 +36,16 @@ const Layout = () => {
           <Route path="/auth" element={<Auth />} />
           <Route path="/products/:id" element={<ProductDetail />} />
           <Route path="/cart" element={<Cart />} />
+
+          {/* Trang không hợp lệ */}
+          <Route path="*" element={<NotFound404 />} />
+
+          {/* Admin */}
           <Route path="/admin/*" element={<ProtectedRoute element={<AdminApp />} />} />
         </Routes>
       </main>
-     
-      {!isAdminPage && <Footer />} 
-      {!isAdminPage &&  <Chat/>}{/* Chỉ hiển thị Footer nếu không phải admin */}
+      {!isAdminPage && <Footer />} {/* Chỉ hiển thị Footer nếu không phải admin, seller*/}
+      {!isAdminPage &&  <Chat/>}{/* Chỉ hiển thị Footer nếu không phải admin, seller*/}
     </div>
   );
 };

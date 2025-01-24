@@ -22,36 +22,37 @@ const Cart = () => {
   const [openSuccessDialog, setOpenSuccessDialog] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
   const [randomId, setRandomId] = useState('');
-
   const [voucherCode, setVoucherCode] = useState("");
-  const {
-    applyVoucher,
-    checkVoucherExists,
-    discount,
-    totalAfterDiscount,
-    loading,
-    error
-  } = useVouchers();
-
+  const { applyVoucher, checkVoucherExists, discount, totalAfterDiscount, loading, error } = useVouchers();
   const [customerId, setCustomerId] = useState(null);
+  const { updateVoucherStatus, checkVoucherStatus } = useVoucherCustomer(customerId);
+  const [emailLoading, setEmailLoading] = useState(false);
+  const [emailError, setEmailError] = useState(null);
+  const [isVoucherApplied, setIsVoucherApplied] = useState(false);
 
   useEffect(() => {
     if (user) {
       const getCustomerId = async () => {
         const id = await fetchIDCustomerByEmail(user.email.trim());
         setCustomerId(id);
-
       };
       getCustomerId();
     }
   }, [user]);
 
-  const { updateVoucherStatus, checkVoucherStatus } = useVoucherCustomer(customerId);
+  useEffect(() => {
+    const id = generateRandomId(10);
+    setRandomId(id);
+  }, []);
 
   const cartTotal = cartProducts.reduce(
     (total, product) => total + product.price * product.quantity,
     0
   );
+
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat('vi-VN').format(price) + '₫';
+  };
 
   const handleInputChangeVoucher = (e) => {
     setVoucherCode(e.target.value);
@@ -59,30 +60,25 @@ const Cart = () => {
 
   const handleApplyVoucher = async () => {
     try {
-      // Kiểm tra nếu người dùng chưa đăng nhập
+
       if (!user || !user.email) {
         alert("Vui lòng đăng nhập để sử dụng voucher.");
-        return; // Dừng việc áp dụng voucher nếu chưa đăng nhập
+        return;
       }
-  
       if (voucherCode === "") {
         return alert("Vui lòng nhập voucher");
       }
-  
       const exitvoucher = await checkVoucherExists(voucherCode);
-  
+
       if (exitvoucher) {
         const customerID = await fetchIDCustomerByEmail(user.email.trim());
-  
-        // Gọi checkVoucherStatus để kiểm tra trạng thái voucher và nhận giá trị trả về
         const status = await checkVoucherStatus(customerID, voucherCode);
-        console.log("Voucher status:", status); // Log để kiểm tra giá trị status
-  
-        // Kiểm tra trạng thái voucher
+
         if (status === 'used') {
           alert("Voucher đã được sử dụng.");
         } else if (status === 'unused') {
           applyVoucher(voucherCode, cartTotal, customerID);
+          setIsVoucherApplied(true);
         } else {
           alert("Trạng thái voucher không xác định.");
         }
@@ -95,6 +91,7 @@ const Cart = () => {
     }
   };
 
+  //Lấy mã số ngẫu nhiên
   function generateRandomId(length) {
     let result = '';
     const characters = '0123456789';
@@ -104,13 +101,6 @@ const Cart = () => {
     }
     return result;
   }
-  useEffect(() => {
-    // Khi component mount, tạo ID ngẫu nhiên
-    const id = generateRandomId(10);
-    setRandomId(id);
-  }, []);
-
-
 
   const [formData, setFormData] = useState({
     fullName: '',
@@ -119,13 +109,11 @@ const Cart = () => {
     phone: '',
     paymentMethod: '',
   });
+
   const totalAmount = cartProducts.reduce((total, product) => total + product.price * product.quantity, 0);
   const amountToDisplay = totalAfterDiscount || totalAmount; // Nếu có totalAfterDiscount, sử dụng nó, nếu không sử dụng totalAmount
   const formattedAmount = new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(amountToDisplay);
   const momoPaymentLink = `momo://pay?receiverPhone=0336165737&amount=${totalAmount}&description=Thanh%20toán%20mua%20hàng&orderId=${randomId}`;
-
-  const [emailLoading, setEmailLoading] = useState(false);
-  const [emailError, setEmailError] = useState(null);
 
   const fetchCustomerByEmail = async (email) => {
     setEmailLoading(true);
@@ -146,7 +134,6 @@ const Cart = () => {
       setEmailLoading(false);
     }
   };
-
 
   const handleDeleteProduct = (productId) => {
     dispatch(DeleteProduct({ id: productId }));
@@ -171,14 +158,14 @@ const Cart = () => {
         alert("Vui lòng nhập đầy đủ thông tin");
         return;
       }
-  
+
       if (!validateEmail(formData.email)) {
         alert("Email không hợp lệ");
         return;
       }
-  
+
       const customerExists = await checkEmailExists(formData.email.trim());
-  
+
       if (!customerExists) {
         try {
           await axios.post('http://localhost:8081/customers', {
@@ -194,11 +181,11 @@ const Cart = () => {
           return;
         }
       }
-  
+
       const customerID = await fetchIDCustomerByEmail(formData.email.trim());
       const orderDateVN = new Date().toLocaleString('en-US', { timeZone: 'Asia/Ho_Chi_Minh' });
       const orderDateISO = new Date(orderDateVN).toISOString();
-  
+
       const orderData = {
         customer_id: customerID,
         order_date: orderDateISO,
@@ -206,31 +193,19 @@ const Cart = () => {
         total_price: formattedAmount,
         detail_order: JSON.stringify(cartProducts)
       };
-  
-      // Đặt đơn hàng
       await addOrder(orderData);
-  
-      // Nếu có voucher, cập nhật trạng thái voucher
-     
-  
-      // Xóa giỏ hàng
       dispatch(ClearCart());
-  
-      // Đóng dialog và thông báo thành công
       setOpenDialog(false);
       setOpenSuccessDialog(true);
 
       if (voucherCode) {
-        // Cập nhật trạng thái voucher thành 'used' sau khi đặt hàng thành công
         await updateVoucherStatus(customerID, voucherCode);
       }
-      
     } catch (error) {
       console.error("Error placing order:", error);
       alert("Có lỗi xảy ra khi đặt hàng.");
     }
   };
-  
 
   const handlePayment = () => {
     if (!user) {
@@ -293,7 +268,7 @@ const Cart = () => {
                     </div>
                   </td>
 
-                  <td className="py-4 px-6 text-sm text-gray-700">{product.price}₫</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{formatPrice(product.price)}</td>
                   <td className="py-4 px-6 text-sm text-gray-700">
                     <div className="flex items-center space-x-2">
                       <button
@@ -314,7 +289,7 @@ const Cart = () => {
                       </button>
                     </div>
                   </td>
-                  <td className="py-4 px-6 text-sm text-gray-700">{product.price * product.quantity}₫</td>
+                  <td className="py-4 px-6 text-sm text-gray-700">{formatPrice(product.price * product.quantity)}</td>
                   <td className="py-4 px-6 text-sm text-red-500 cursor-pointer hover:text-red-700 transition-all">
                     <button onClick={() => handleDeleteProduct(product.id)} className="hover:underline">Xóa</button>
                   </td>
@@ -351,6 +326,7 @@ const Cart = () => {
         )}
       </div>
 
+      {/* Mở dialog đặt hàng */}
       <Dialog
         open={openDialog}
         onClose={() => setOpenDialog(false)}
@@ -358,31 +334,27 @@ const Cart = () => {
         maxWidth="md"
         fullScreen
       >
-
         <DialogContent className="space-y-4 flex">
 
-          <div className=' w-full md:w-1/2 space-y-4'>
+          <div className=' w-full md:w-1/2 space-y-4 pr-6'>
 
             {user ? (
-              <div
-                className="flex items-center space-x-2 cursor-pointer"
-              >
+              <div className="flex items-center space-x-2 cursor-pointer">
                 <h2>Xin chào: {formData.name}  vui lòng kiểm tra thông tin giao hàng của bạn.</h2>
-
               </div>
             ) : (
               <h4>Nếu bạn đã có tài khoản?
-
-                <a href='/Auth'>
+                <a
+                  className="underline p-2 text-blue-500 hover:text-yellow-500"
+                  href='/Auth'>
                   Đăng nhập
                 </a>
               </h4>
             )}
 
-            {/* Họ tên và Địa chỉ cùng hàng */}
             <div className="flex gap-2">
               <TextField
-                label="Họ Tên"
+                label="Họ và Tên"
                 name="fullName"
                 value={formData.name}
                 onChange={handleInputChange}
@@ -395,13 +367,11 @@ const Cart = () => {
                 name="address"
                 value={formData.address}
                 onChange={handleInputChange}
-
                 margin="normal"
                 className="flex-1 border rounded-lg"
               />
             </div>
 
-            {/* Email và SĐT cùng hàng */}
             <div className="flex gap-4">
               <TextField
                 label="Email"
@@ -423,7 +393,7 @@ const Cart = () => {
               />
 
               <input
-                // type="hidden"
+                type="hidden"
                 name="id"
                 value={formData.id}
                 onChange={handleInputChange}
@@ -580,81 +550,106 @@ const Cart = () => {
             )}
           </div>
 
-          <div className=" w-full  md:w-1/2 bg-gray-100 p-3 rounded-lg space-y-4 ">
+          <div className=" w-full md:w-1/2 bg-gray-100 p-2 rounded-lg space-y-4 ">
 
-            {cartProducts.map((product, index) => (
-              <div key={index} className="flex items-center space-x-3 bg-white p-3 rounded-lg shadow-sm mb-4 relative">
+            <div className="w-full bg-gray-100 p-3 rounded-lg space-y-4 max-h-[280px] overflow-y-auto">
+              {cartProducts.map((product, index) => (
+                <div
+                  key={index}
+                  className="flex items-center space-x-3 bg-white p-2 rounded-lg shadow-sm mb-4 relative"
+                >
+                  {/* Số lượng ở góc trái của ảnh */}
+                  <div className="absolute left-0 top-0 bg-rose-400 text-white text-xs px-2 py-1 rounded-full z-10">
+                    <p> {product.quantity}</p>
+                  </div>
 
-                {/* Số lượng ở góc phải của ảnh */}
-                <div className="absolute top-1 right-1 bg-gray-800 text-white text-xs px-2 py-1 rounded-full">
-                  <p>Số lượng: {product.quantity}</p>
+                  {/* Ảnh sản phẩm */}
+                  <img
+                    src={'http://localhost:8081/' + product.image}
+                    alt={product.name}
+                    className="w-16 h-16 object-cover transition-transform duration-200 hover:scale-105"
+                  />
+
+                  {/* Thông tin sản phẩm */}
+                  <div className="flex-1 text-sm">
+                    <p className="font-semibold">{product.name}</p>
+                    <p className="text-gray-500">{product.description}</p>
+                  </div>
+
+                  {/* Giá sản phẩm */}
+                  <div className="flex items-center space-x-1">
+                    <p className="text-lg font-bold text-gray-900">
+                      {formatPrice(product.price)}
+                    </p>
+                  </div>
+
                 </div>
+              ))}
+            </div>
 
-                {/* Ảnh sản phẩm */}
-                <img
-                  src={'http://localhost:8081/' + product.image}
-                  alt={product.name}
-                  className="w-16 h-16 object-cover transition-transform duration-200 hover:scale-105"
-                />
-
-                {/* Thông tin sản phẩm */}
-                <div className="flex-1 text-sm">
-                  <p className="font-semibold">{product.name}</p>
-                  <p className="text-gray-500">{product.description}</p>
-                </div>
-
-                {/* Giá sản phẩm */}
-                <div className="flex items-center space-x-1">
-                  <p className="text-lg font-bold text-gray-900">{product.price}₫</p>
-                </div>
-              </div>
-            ))}
-
-            <div className="flex gap-4 w-full">
+            <div className="flex items-center gap-3 p-3 bg-white rounded-lg shadow-lg max-w-lg mx-auto">
               <TextField
                 label="Nhập mã giảm giá"
                 name="voucherCode"
                 value={voucherCode}
                 onChange={handleInputChangeVoucher}
-                fullWidth
                 margin="normal"
-                className="flex-1"
+                className="flex-1 border border-gray-300 rounded-lg p-2 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all"
               />
               <button
                 onClick={handleApplyVoucher}
-                className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition"
+                className="bg-blue-500 text-white py-2 px-5 rounded-lg hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300 transition-all duration-150 text-sm"
               >
-                Áp dụng mã
+                Áp dụng
               </button>
             </div>
 
-            <div>
 
-              <p>Tạm tính:
-                {new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(cartProducts.reduce((total, product) => total + product.price * product.quantity, 0))}
-              </p>
-              <p>Phí vận chuyển:
+            <div className="bg-white p-6 rounded-lg shadow-md space-y-4">
+              <p className="text-lg font-semibold text-gray-800 flex justify-between">
+                <span>Tạm tính:</span>
                 <span>
-                  Miễn phí
+                  {formatPrice(totalAmount)}
                 </span>
               </p>
+              <p className="text-lg font-medium text-gray-700 flex justify-between">
+                <span>Phí vận chuyển:</span>
+                <span className="text-green-500">Miễn phí</span>
+              </p>
 
-
-              {totalAfterDiscount !== cartTotal ? (
-                <>
-                  <p>Giảm giá: {discount} VNĐ</p>
-                  <p>Tổng sau khi giảm: {totalAfterDiscount} VNĐ</p>
-                </>
-              ) : (
-                <>
-                  <p className='text-red-400'>Voucher không đủ điều kiện áp dụng vui lòng xem lại điều kiện áp dụng mã này.</p>
-                  <p>Tổng tiền: {totalAfterDiscount} VNĐ</p>
-                </>
-
+              {/* Hiện giảm giá nếu khác giá gốc */}
+              {isVoucherApplied && (
+                totalAfterDiscount !== cartTotal ? (
+                  <>
+                    <p className="text-lg font-medium text-gray-700 flex justify-between">
+                      <span>Giảm giá:</span>
+                      <span className="text-red-500">
+                        {formatPrice('-' + discount)}
+                      </span>
+                    </p>
+                    <p className="text-xl font-bold text-gray-900 flex justify-between">
+                      <span>Tổng sau khi giảm:</span>
+                      <span className="text-red-800">
+                        {formatPrice(totalAfterDiscount)}
+                      </span>
+                    </p>
+                  </>
+                ) : (
+                  <>
+                    <p className="text-sm text-red-400">
+                      Voucher không đủ điều kiện áp dụng. Vui lòng xem lại điều kiện áp dụng mã này.
+                    </p>
+                    <p className="text-xl font-bold text-gray-900 flex justify-between">
+                      <span>Tổng tiền:</span>
+                      <span>
+                        {new Intl.NumberFormat("vi-VN").format(totalAfterDiscount)} VNĐ
+                      </span>
+                    </p>
+                  </>
+                )
               )}
-
-
             </div>
+
           </div>
         </DialogContent>
         <DialogActions>
@@ -700,8 +695,6 @@ const Cart = () => {
           </Button>
         </DialogActions>
       </Dialog>
-
-
 
     </div>
   );

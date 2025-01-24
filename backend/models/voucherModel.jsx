@@ -80,7 +80,6 @@ const deleteVoucher = (voucherId, callback) => {
 };
 
 // Kiểm tra tính hợp lệ của voucher
-// Kiểm tra tính hợp lệ của voucher
 const checkVoucher = (voucherCode, cartTotal, customerId, callback) => {
     const sql = 'SELECT * FROM vouchers WHERE code = ?';
     db.query(sql, [voucherCode], (err, results) => {
@@ -95,23 +94,19 @@ const checkVoucher = (voucherCode, cartTotal, customerId, callback) => {
 
         const voucher = results[0];
         
-        // Kiểm tra trạng thái của voucher
         if (voucher.status !== 'active') {
             return callback(new Error('Voucher không còn hiệu lực'), null);
         }
 
-        // Kiểm tra ngày hết hạn của voucher
         const currentDate = new Date();
         if (new Date(voucher.expiration_date) < currentDate) {
             return callback(new Error('Voucher đã hết hạn'), null);
         }
 
-        // Kiểm tra giá trị đơn hàng có đủ điều kiện không
         if (cartTotal < voucher.min_order_amount) {
             return callback(new Error(`Đơn hàng phải có giá trị tối thiểu ${voucher.min_order_amount}₫`), null);
         }
 
-        // Trả về voucher nếu tất cả điều kiện hợp lệ
         return callback(null, voucher);
     });
 };
@@ -123,12 +118,11 @@ const checkVoucherExists = (code, callback) => {
             console.error('Lỗi khi kiểm tra sự tồn tại voucher:', err);
             return callback(err, null);
         }
-        
-        // Nếu tìm thấy kết quả, voucher tồn tại
+    
         if (results.length > 0) {
-            return callback(null, true); // Voucher tồn tại
+            return callback(null, true);
         } else {
-            return callback(null, false); // Voucher không tồn tại
+            return callback(null, false); 
         }
     });
 };
@@ -141,5 +135,5 @@ module.exports = {
     updateVoucher,
     deleteVoucher,
     checkVoucher, 
-    checkVoucherExists,// Thêm hàm checkVoucher vào module exports
+    checkVoucherExists,
 };

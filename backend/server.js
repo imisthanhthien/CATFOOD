@@ -71,6 +71,7 @@ app.post('/upload', upload.single('file'), (req, res) => {
     }
 });
 
+//Cổng 8081
 app.listen(8081, () => {
     console.log("Server is running on port 8081");
 });

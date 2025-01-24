@@ -8,12 +8,9 @@ const applyVoucher = (req, res) => {
 
     voucherModel.getVoucherByCode(voucherCode, (err, voucher) => {
         if (err || !voucher || voucher.length === 0) {
-            console.log("Voucher không tìm thấy hoặc không hợp lệ");
+            
             return res.status(400).json({ success: false, message: 'Voucher không tìm thấy hoặc không hợp lệ' });
         }
-
-        // Log chi tiết voucher để kiểm tra
-        console.log("Voucher details:", voucher);
 
         let discount = 0;
 
@@ -21,7 +18,6 @@ const applyVoucher = (req, res) => {
         const discountPercentage = parseFloat(voucher[0].discount_percentage);
         const discountAmount = parseFloat(voucher[0].discount_amount);
         const discountMin = parseFloat(voucher[0].min_order_amount);
-
         const maxdiscout = parseFloat(voucher[0].max_discount_amount);
 
         if (cartTotal < discountMin) {
@@ -30,29 +26,20 @@ const applyVoucher = (req, res) => {
             // Kiểm tra giảm giá theo phần trăm
             if (discountPercentage > 0) {
                 discount = (cartTotal * discountPercentage) / 100;
-
-                console.log(`Giảm giá tính theo phần trăm: ${discountPercentage}% => ${discount} VNĐ`);
-              
-                // Kiểm tra giới hạn mức giảm giá tối đa
+            
                 if (maxdiscout > 0 && discount > maxdiscout) {
-                    discount = maxdiscout; // Giới hạn mức giảm giá tối đa
-                    console.log(`Giảm giá vượt mức, áp dụng tối đa: ${discount} VNĐ`);
+                    discount = maxdiscout;
                 }
             }
             // Kiểm tra giảm giá theo số tiền cố định
             else if (discountAmount > 0) {
-                discount = discountAmount;
-                console.log(`Giảm giá cố định: ${discount} VNĐ`);
+                discount = discountAmount;   
             } else {
-                console.log("Voucher không có thông tin giảm giá.");
+                console.log("Voucher không có thông tin giảm giá."); 
             }
         }
 
         const totalAfterDiscount = cartTotal - discount;
-
-        // Log kết quả tính toán
-        console.log(`Tổng sau khi giảm: ${totalAfterDiscount} VNĐ`);
-
         return res.json({
             success: true,
             discount,
@@ -60,8 +47,6 @@ const applyVoucher = (req, res) => {
         });
     });
 };
-
-
 
 // Lấy danh sách tất cả các voucher
 const getAllVouchers = (req, res) => {

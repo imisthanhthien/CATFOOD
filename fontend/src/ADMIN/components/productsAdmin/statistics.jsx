@@ -267,7 +267,7 @@ const revenueByMonthDataChart = {
       </div>
 
       {/* Doanh thu theo sản phẩm */}
-      <h2 className="text-3xl font-semibold mt-8 text-gray-800">Doanh thu theo sản phẩm</h2>
+      <h2 className="text-3xl font-semibold mt-8 text-gray-800 uppercase">Doanh thu theo sản phẩm</h2>
       <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
         {statistics.revenueByProduct.length > 0 ? (
           <Bar data={revenueByProductData} options={{ responsive: true }} />
@@ -277,17 +277,17 @@ const revenueByMonthDataChart = {
       </div>
 
       {/* Doanh thu theo ngày */}
-      <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo ngày</h2>
+      <h2 className="text-3xl font-semibold mt-12 text-gray-800 uppercase">Doanh thu theo ngày</h2>
     <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
       {statistics.revenueByDate.length > 0 ? (
         <Bar data={revenueByDateDataChart} options={{ responsive: true }} />
       ) : (
-        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo ngày.</p>
+        <p className="text-center text-gray-400 py-20 uppercase">Không có dữ liệu doanh thu theo ngày.</p>
       )}
     </div>
 
       {/* Doanh thu theo tháng */}
-      <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo tháng</h2>
+      <h2 className="text-3xl font-semibold mt-12 text-gray-800 uppercase">Doanh thu theo tháng</h2>
     <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
       {statistics.revenueByMonth.length > 0 ? (
         <Bar data={revenueByMonthDataChart} options={{ responsive: true }} />
@@ -296,22 +296,22 @@ const revenueByMonthDataChart = {
       )}
     </div>
       {/* Doanh thu theo quý */}
-    <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo quý</h2>
+    <h2 className="text-3xl font-semibold mt-12 text-gray-800 uppercase">Doanh thu theo quý</h2>
     <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
       {statistics.revenueByQuarter.length > 0 ? (
         <Bar data={revenueByQuarterDataChart} options={{ responsive: true }} />
       ) : (
-        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo quý.</p>
+        <p className="text-center text-gray-400 py-20 uppercase">Không có dữ liệu doanh thu theo quý.</p>
       )}
     </div>
 
     {/* Doanh thu theo năm */}
-    <h2 className="text-3xl font-semibold mt-12 text-gray-800">Doanh thu theo năm</h2>
+    <h2 className="text-3xl font-semibold mt-12 text-gray-800 uppercase">Doanh thu theo năm</h2>
     <div className="w-full md:w-1/2 mx-auto h-80 mt-4 rounded-lg overflow-hidden shadow-lg bg-white">
       {statistics.revenueByYear.length > 0 ? (
         <Bar data={revenueByYearDataChart} options={{ responsive: true }} />
       ) : (
-        <p className="text-center text-gray-400 py-20">Không có dữ liệu doanh thu theo năm.</p>
+        <p className="text-center text-gray-400 py-20 uppercase">Không có dữ liệu doanh thu theo năm.</p>
       )}
     </div>
 
@@ -352,13 +352,13 @@ const revenueByMonthDataChart = {
       width={300}   // Tăng chiều rộng của biểu đồ
     />
   ) : (
-    <p className="text-center text-xl text-gray-500 py-20">Không có dữ liệu tồn kho sản phẩm.</p>
+    <p className="text-center text-xl text-gray-500 py-20 uppercase">Không có dữ liệu tồn kho sản phẩm.</p>
   )}
 </div>
 
 
 
-<h2 className="text-3xl font-semibold text-center mt-12 text-gray-800 uppercase">Sản phẩm bán chạy nhất</h2>
+<h2 className="text-3xl font-semibold text-center mt-12 text-gray-800 uppercase uppercase">Sản phẩm bán chạy nhất</h2>
 <div className="w-full md:w-4/5 mx-auto bg-white rounded-lg shadow-lg p-6 mt-6 transition-all duration-300 hover:shadow-2xl hover:bg-gray-50">
   {statistics.bestSellingProduct ? (
     <div className="flex items-center justify-between">

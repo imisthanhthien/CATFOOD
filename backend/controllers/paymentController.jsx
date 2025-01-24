@@ -1,4 +1,3 @@
-// src/controllers/paymentController.js
 const { createPaymentLink } = require('../models/paymentModel.jsx');
 
 // Hàm xử lý request thanh toán

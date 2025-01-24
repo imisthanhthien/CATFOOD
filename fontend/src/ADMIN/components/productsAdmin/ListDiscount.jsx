@@ -246,7 +246,7 @@ const ListDiscounts = () => {
         <div className="p-6 ">
             <button
                 onClick={openModal}
-                className="mb-4 px-6 py-3 bg-green-600 text-white font-semibold rounded-md hover:bg-green-700 focus:ring-2 focus:ring-green-300 transition duration-300 flex items-center"
+                className="px-6 py-3 bg-gradient-to-r from-green-400 to-green-600 text-white font-semibold rounded-lg shadow-lg hover:from-green-500 hover:to-green-700 focus:ring-4 focus:ring-green-300 transition duration-300 ease-in-out flex items-center space-x-2"
             >
                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />

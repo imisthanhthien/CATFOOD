@@ -198,7 +198,7 @@ const ListOrders = () => {
             {isCustomerModalOpen && customerDetail && (
                 <div className="fixed inset-0 bg-gray-500 bg-opacity-75 flex justify-center items-center z-50">
                     <div className="bg-white p-10 rounded-lg w-full max-w-3xl relative max-h-[90vh] overflow-auto shadow-xl transform transition-all duration-500 ease-in-out scale-95 hover:scale-100">
-                        <h3 className="text-4xl font-semibold text-center mb-8 text-gray-900">Thông tin khách hàng</h3>
+                        <h3 className="text-4xl font-semibold text-center mb-8 text-gray-900 uppercase">Thông tin khách hàng</h3>
 
                         <div className="space-y-5">
                             <div className="flex justify-start items-center space-x-4">

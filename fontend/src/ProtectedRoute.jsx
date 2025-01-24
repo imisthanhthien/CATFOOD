@@ -4,7 +4,7 @@ import { useUserContext } from "./hooks/UserContext";
 const ProtectedRoute = ({ element }) => {
   const { user } = useUserContext();
 
-  // Kiểm tra nếu chưa đăng
+  // Kiểm tra nếu chưa đăng nhập
   if (!user) {
     return (
       <div className="flex justify-center items-center min-h-screen bg-gray-800 text-white">
@@ -19,7 +19,7 @@ const ProtectedRoute = ({ element }) => {
             href="/auth"
             className="bg-yellow-500 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-yellow-600 transition duration-300 ease-in-out"
           >
-            Đăng nhập
+            Đăng nhập ngay
           </a>
         </div>
       </div>
@@ -32,7 +32,7 @@ const ProtectedRoute = ({ element }) => {
       <div className="flex justify-center items-center min-h-screen bg-gray-800 text-white">
         <div className="bg-red-900 p-8 rounded-xl shadow-lg text-center max-w-lg w-full">
           <h2 className="text-3xl font-semibold mb-4 text-red-400">
-            Bạn không có quyền truy cập
+            Bạn không có quyền truy cập vào đường link này
           </h2>
           <p className="text-xl mb-6">
             Bạn không đủ quyền để truy cập vào trang này. Vui lòng kiểm tra lại quyền truy cập của bạn hoặc quay lại trang sản phẩm.
@@ -41,7 +41,7 @@ const ProtectedRoute = ({ element }) => {
             href="/products"
             className="bg-red-500 text-white px-6 py-3 rounded-full font-semibold text-lg hover:bg-red-600 transition duration-300 ease-in-out"
           >
-            Quay lại sản phẩm
+            Quay lại 
           </a>
         </div>
       </div>
