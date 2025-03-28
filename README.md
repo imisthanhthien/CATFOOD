@@ -20,7 +20,7 @@ Công Nghệ
 
 Frontend: React.js
 
-Backend: NestJS
+Backend: Express
 
 Database: MySQL
 
