@@ -1,29 +1,24 @@
-CAT FOOD - Website Bán Thức Ăn Cho Mèo
+🐱 CAT FOOD – Cat Food E-commerce Website
+📌 Introduction
+CAT FOOD is an e-commerce website for cat food, making it easy for pet owners to find and purchase the right products for their cats.
 
-Giới Thiệu
+💡 Features
+User Registration & Login
 
-CAT FOOD là website bán thức ăn cho mèo, giúp người nuôi dễ dàng tìm kiếm và mua sắm sản phẩm.
+Product Management
 
-Tính Năng
+Shopping Cart & Order Placement
 
-Đăng ký & Đăng nhập
+Voucher System
 
-Quản lý sản phẩm
+Order Management
 
-Giỏ hàng & Đặt hàng
-
-Hệ thống voucher
-
-Quản lý đơn hàng
-
-Công Nghệ
-
+🛠️ Technologies
 Frontend: React.js
 
 Backend: Express
 
 Database: MySQL
 
-Liên Hệ
-
+📬 Contact
 Email: imisthanhthien@gmail.com
